@@ -1,0 +1,2168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>doo.FINANCE — Your Odoo partner for accounting and finance</title>
+<meta name="description" content="Odoo Gold Partner for accounting and finance: bookkeeping, payroll, tax returns, reporting, migration and German accounting integrations, in 10 countries.">
+<link rel="icon" type="image/png" href="assets/doo-finance-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+
+body{margin:0;background:#FFFFFF}
+a{color:#8A3F7B}a:hover{color:#6E2F62}
+
+/* ---------- keyframes ---------- */
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{opacity:0;transform:scale(.6)}70%{opacity:1;transform:scale(1.08)}100%{opacity:1;transform:scale(1)}}
+@keyframes drift1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(60px,40px) scale(1.15)}}
+@keyframes drift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-70px,30px) scale(.9)}}
+@keyframes drift3{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-50px)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}40%{transform:translateY(-18px)}60%{transform:translateY(-18px)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes words{0%,18%{transform:translateY(0)}25%,43%{transform:translateY(-25%)}50%,68%{transform:translateY(-50%)}75%,93%{transform:translateY(-75%)}100%{transform:translateY(0)}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes shine{0%{transform:translateX(-120%) skewX(-20deg)}60%,100%{transform:translateX(220%) skewX(-20deg)}}
+@keyframes pulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(3.2);opacity:0}}
+@keyframes gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes tilt{from{opacity:0;transform:perspective(1400px) rotateX(18deg) translateY(60px)}to{opacity:1;transform:perspective(1400px) rotateX(0) translateY(0)}}
+@keyframes underline{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@property --n750{syntax:'<integer>';initial-value:0;inherits:false}
+@property --n10{syntax:'<integer>';initial-value:0;inherits:false}
+@keyframes c750{to{--n750:750}}
+@keyframes c10{to{--n10:10}}
+
+/* ---------- utilities ---------- */
+.a-rise{animation:rise .9s cubic-bezier(.2,.7,.2,1) both}
+.a-pop{animation:pop .6s cubic-bezier(.2,.7,.2,1) both}
+.d1{animation-delay:.1s}.d2{animation-delay:.25s}.d3{animation-delay:.4s}.d4{animation-delay:.55s}.d5{animation-delay:.7s}.d6{animation-delay:.9s}.d7{animation-delay:1.1s}.d8{animation-delay:1.3s}.d9{animation-delay:1.5s}.d10{animation-delay:1.7s}
+.blob1{animation:drift1 14s ease-in-out infinite}
+.blob2{animation:drift2 18s ease-in-out infinite}
+.blob3{animation:drift3 12s ease-in-out infinite}
+.dot-bounce{animation:bounce 2.4s cubic-bezier(.3,.6,.3,1) infinite}
+.bob{animation:bob 4s ease-in-out infinite}
+.bob2{animation:bob 5s ease-in-out infinite .8s}
+.bar{transform-origin:bottom;animation:grow 1s cubic-bezier(.2,.7,.2,1) both}
+.line-draw{stroke-dasharray:400;stroke-dashoffset:400;animation:draw 2s ease-out 1.2s forwards}
+.word-wheel{animation:words 10s cubic-bezier(.7,0,.3,1) infinite}
+.marquee{animation:marquee 30s linear infinite}
+.marquee:hover{animation-play-state:paused}
+.shine{position:relative;overflow:hidden}
+.shine::after{content:"";position:absolute;inset:0;width:40%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);animation:shine 3.5s ease-in-out infinite}
+.pin::before{content:"";position:absolute;inset:0;border-radius:50%;background:inherit;animation:pulse 2s ease-out infinite}
+.grad{background:linear-gradient(120deg,#A0508F,#7E3C70,#C46A8E,#F97243,#A0508F);background-size:300% 300%;animation:gradient 12s ease infinite}
+.dash{animation:tilt 1.2s cubic-bezier(.2,.7,.2,1) .6s both}
+.uline{transform-origin:left;animation:underline .8s cubic-bezier(.2,.7,.2,1) 1.2s both}
+.count750{animation:c750 2.4s cubic-bezier(.2,.7,.2,1) .4s both;counter-reset:n var(--n750)}
+.count750::before{content:counter(n)}
+.count10{animation:c10 2s cubic-bezier(.2,.7,.2,1) .4s both;counter-reset:n var(--n10)}
+.count10::before{content:counter(n)}
+
+/* hover life */
+.nav-a{position:relative;color:#4A4F59;text-decoration:none}
+.nav-a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;border-radius:2px;background:#F97243;transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+.nav-a:hover{color:#262A36}.nav-a:hover::after{transform:scaleX(1)}
+.tile{transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s ease,background-color .25s}
+.tile:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(160,80,143,.16);background:#FFFFFF}
+.tile .ico{transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+.tile:hover .ico{transform:rotate(-8deg) scale(1.12)}
+.card-h{transition:transform .25s ease,box-shadow .25s ease}
+.card-h:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(38,42,54,.10)}
+.btn-p{transition:transform .2s ease,box-shadow .2s ease}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(160,80,143,.35)}
+
+/* scroll-driven reveals (modern browsers); content stays visible elsewhere */
+@supports (animation-timeline: view()){
+  .reveal{animation:rise linear both;animation-timeline:view();animation-range:entry 0% cover 28%}
+  .reveal-pop{animation:pop linear both;animation-timeline:view();animation-range:entry 10% cover 30%}
+  .progress-line{transform-origin:top;animation:grow linear both;animation-timeline:view();animation-range:entry 20% cover 60%}
+}
+
+/* ===== final round: shared ===== */
+.eyebrow{margin:0 0 10px;font-size:13px;font-weight:800;letter-spacing:1.4px;color:#8A3F7B}
+.dot-grid{position:absolute;inset:0;background-image:radial-gradient(#E7DCE4 1.2px,transparent 1.4px);background-size:22px 22px;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 75%);-webkit-mask-image:radial-gradient(ellipse at center,#000 30%,transparent 75%);opacity:.8}
+.tick{flex:none;width:20px;height:20px;border-radius:50%;background:var(--c,#0E9F8E);position:relative;margin-top:1px}
+.tick::after{content:"";position:absolute;left:7px;top:4px;width:5px;height:9px;border:solid #FFFFFF;border-width:0 2.2px 2.2px 0;transform:rotate(45deg)}
+.sample-badge{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;padding:6px 12px;border-radius:999px;border:1px dashed rgba(255,255,255,.4);color:#F3D27A}
+@property --n12{syntax:'<integer>';initial-value:0;inherits:false}
+@keyframes c12{to{--n12:12}}
+.count12{animation:c12 2s cubic-bezier(.2,.7,.2,1) .4s both;counter-reset:n var(--n12)}
+.count12::before{content:counter(n)}
+
+/* hero floating app icons */
+.hero-app{position:absolute;width:64px;height:64px;border-radius:18px;background:#FFFFFF;box-shadow:0 14px 34px rgba(38,42,54,.14);display:flex;align-items:center;justify-content:center;z-index:1;transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+.hero-app img{width:46px;height:46px}
+.hero-app:hover{transform:scale(1.15) rotate(-6deg)}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-16px) rotate(4deg)}}
+.fl1{animation:floaty 6s ease-in-out infinite}.fl2{animation:floaty 7s ease-in-out infinite .6s}.fl3{animation:floaty 5.5s ease-in-out infinite 1.2s}.fl4{animation:floaty 6.5s ease-in-out infinite .3s}.fl5{animation:floaty 7.5s ease-in-out infinite .9s}.fl6{animation:floaty 6.2s ease-in-out infinite 1.5s}
+
+/* stats */
+.stat{background:var(--bg);border-radius:20px;padding:26px 24px;position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+.stat:hover{transform:translateY(-4px) rotate(-.6deg)}
+.stat::after{content:"";position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:var(--c);opacity:.12;transition:transform .5s}
+.stat:hover::after{transform:scale(1.6)}
+.stat-num{font-size:52px;font-weight:800;letter-spacing:-2px;line-height:1;color:var(--c)}
+.stat-lbl{margin-top:10px;color:#3F4450;font-weight:500;font-size:15px}
+
+/* apps */
+.app-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px}
+.app-tile{position:relative;display:flex;flex-direction:column;align-items:center;gap:10px;padding:18px 8px 14px;border-radius:18px;border:1px solid transparent;background:transparent;font:600 13.5px Inter,sans-serif;color:#262A36;cursor:pointer;transition:transform .3s cubic-bezier(.2,.7,.2,1),background-color .25s,box-shadow .25s,border-color .25s}
+.app-ico{width:72px;height:72px;border-radius:20px;background:#FFFFFF;box-shadow:0 6px 16px rgba(38,42,54,.10),0 0 0 1px rgba(38,42,54,.05);display:flex;align-items:center;justify-content:center;transition:transform .45s cubic-bezier(.3,1.6,.5,1),box-shadow .3s}
+.app-ico img{width:54px;height:54px}
+.app-ico.big{width:84px;height:84px;border-radius:24px}
+.app-ico.big img{width:64px;height:64px}
+.app-tile:hover .app-ico{transform:translateY(-6px) rotate(-7deg) scale(1.06);box-shadow:0 16px 30px color-mix(in srgb,var(--glow) 35%,transparent),0 0 0 1px rgba(38,42,54,.05)}
+.app-tile.is-on{background:#FFFFFF;border-color:color-mix(in srgb,var(--glow) 40%,#FFFFFF);box-shadow:0 18px 40px color-mix(in srgb,var(--glow) 22%,transparent)}
+.app-tile.is-on .app-ico{transform:scale(1.06);box-shadow:0 0 0 3px var(--glow),0 14px 30px color-mix(in srgb,var(--glow) 35%,transparent)}
+.app-tile.is-on::after{content:"";position:absolute;bottom:6px;left:50%;width:18px;height:4px;margin-left:-9px;border-radius:4px;background:var(--glow)}
+.app-panel{position:relative;border-radius:26px;padding:30px;background:#FFFFFF;border:1px solid #EEE7EC;box-shadow:0 30px 70px rgba(38,42,54,.10);overflow:hidden;transition:box-shadow .4s}
+.app-panel-bg{position:absolute;right:-90px;top:-90px;width:300px;height:300px;border-radius:50%;background:var(--glow);opacity:.14;filter:blur(10px);transition:background-color .5s}
+.app-points{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.app-points li{display:flex;gap:12px;font-size:15.5px;color:#3F4450;animation:rise .45s cubic-bezier(.2,.7,.2,1) both}
+.app-points li:nth-child(2){animation-delay:.07s}.app-points li:nth-child(3){animation-delay:.14s}.app-points li:nth-child(4){animation-delay:.21s}
+.app-points .tick{--c:var(--glow)}
+.app-flow-tag{font-size:12px;font-weight:700;letter-spacing:.8px;color:#5F6470;text-transform:uppercase}
+.app-chip{display:inline-flex;align-items:center;gap:8px;padding:5px 12px 5px 5px;border-radius:999px;background:#F6F3F5;font-size:13.5px;font-weight:600}
+.app-chip img{width:26px;height:26px;border-radius:8px;background:#FFFFFF}
+
+/* flow */
+.flow{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;padding:20px 0}
+.flow-track{position:absolute;left:10%;right:10%;top:58px;height:4px;border-radius:4px;background:repeating-linear-gradient(90deg,#BFE9E3 0 10px,transparent 10px 18px);overflow:visible}
+.packet{position:absolute;top:-5px;left:0;width:14px;height:14px;border-radius:50%;box-shadow:0 0 0 5px rgba(255,255,255,.9),0 4px 12px rgba(0,0,0,.2);animation:travel 4.8s cubic-bezier(.55,.1,.45,.9) infinite}
+@keyframes travel{0%{left:0;opacity:0}8%{opacity:1}92%{opacity:1}100%{left:100%;opacity:0}}
+.flow-step{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;z-index:1}
+.flow-ico{width:84px;height:84px;border-radius:24px;background:#FFFFFF;box-shadow:0 12px 28px rgba(14,159,142,.18),0 0 0 1px rgba(14,159,142,.15);display:flex;align-items:center;justify-content:center;transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+.flow-ico img{width:60px;height:60px}
+.flow-step:hover .flow-ico{transform:translateY(-8px) scale(1.08)}
+.flow-step strong{font-size:16px}
+.flow-step span:last-child{font-size:14px;color:#5F6470}
+
+/* services */
+.seg{display:inline-flex;padding:5px;border-radius:14px;background:#FFFFFF;border:1px solid #EEE7EC;box-shadow:0 6px 18px rgba(38,42,54,.06)}
+.seg-btn{height:42px;padding:0 18px;border:0;border-radius:10px;background:transparent;font:700 14px Inter,sans-serif;color:#4A4F59;cursor:pointer;transition:background-color .25s,color .25s}
+.seg-btn.is-on{background:#A0508F;color:#FFFFFF}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:18px}
+.svc{position:relative;display:flex;flex-direction:column;gap:12px;padding:24px;border-radius:22px;background:#FFFFFF;border:1px solid #EEE7EC;overflow:hidden;animation:pop .5s cubic-bezier(.2,.7,.2,1) both;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
+.svc::before{content:"";position:absolute;inset:0;background:var(--bg);transform:translateY(101%);transition:transform .45s cubic-bezier(.2,.7,.2,1);z-index:0}
+.svc>*{position:relative;z-index:1}
+.svc:hover{transform:translateY(-6px);box-shadow:0 24px 50px color-mix(in srgb,var(--c) 22%,transparent)}
+.svc:hover::before{transform:none}
+.svc-top{display:flex;justify-content:space-between;align-items:center}
+.svc-ico{width:60px;height:60px;border-radius:18px;background:#FFFFFF;box-shadow:0 6px 16px rgba(38,42,54,.10);display:flex;align-items:center;justify-content:center;transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.svc-ico img{width:44px;height:44px}
+.svc:hover .svc-ico{transform:rotate(-10deg) scale(1.1)}
+.svc-kind{font-size:11.5px;font-weight:800;letter-spacing:1px;color:var(--c);text-transform:uppercase}
+.svc h3{margin:0;font-size:20px;font-weight:800;letter-spacing:-.3px}
+.svc p{margin:0;color:#4A4F59;font-size:15px}
+.svc-more{display:flex;flex-wrap:wrap;gap:6px}
+.svc-tag{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:color-mix(in srgb,var(--c) 12%,#FFFFFF);color:color-mix(in srgb,var(--c) 75%,#000000)}
+.svc-link{margin-top:auto;display:inline-flex;align-items:center;gap:6px;font-weight:700;text-decoration:none;color:color-mix(in srgb,var(--c) 80%,#000000)}
+.svc-link svg{transition:transform .25s}
+.svc:hover .svc-link svg{transform:translateX(5px)}
+
+/* data */
+.panel{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:24px;backdrop-filter:blur(6px);transition:border-color .3s,transform .3s}
+.panel:hover{border-color:rgba(249,160,126,.45);transform:translateY(-3px)}
+.panel-h{margin:0 0 18px;font-size:16px;font-weight:700;color:#FFFFFF}
+.bars{display:flex;align-items:flex-end;gap:12px;height:240px;padding-top:24px}
+.bar-col{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:8px;position:relative;cursor:default}
+.bar-fill{width:100%;border-radius:8px 8px 3px 3px;transform-origin:bottom;animation:grow 1s cubic-bezier(.2,.7,.2,1) both;transition:filter .2s,transform .2s}
+.bar-col:hover .bar-fill{filter:brightness(1.25);transform:scaleX(1.06)}
+.bar-val{position:absolute;bottom:calc(100% - 2px);font-size:12px;font-weight:800;color:#FFFFFF;background:#F97243;padding:3px 8px;border-radius:6px;opacity:0;transform:translateY(6px);transition:opacity .2s,transform .2s;pointer-events:none}
+.bar-col:hover .bar-val{opacity:1;transform:none}
+.bar-yr{font-size:12px;color:#B9BCC6}
+.donut-seg{transition:stroke-width .2s}
+.donut-seg:hover{stroke-width:20}
+.legend{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;flex:1;min-width:150px}
+.legend li{display:flex;align-items:center;gap:10px;font-size:14px;color:#D9DBE1}
+.legend li span{width:12px;height:12px;border-radius:4px}
+.legend li strong{margin-left:auto;color:#FFFFFF}
+.kpi{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:center;font-size:14px;color:#D9DBE1}
+.kpi strong{color:#FFFFFF;font-size:18px}
+.kpi-bar{grid-column:1 / -1;height:8px;border-radius:8px;background:#2A2D36;overflow:hidden}
+.kpi-bar span{display:block;height:100%;border-radius:8px;background:#A0508F;transform-origin:left;animation:barGrow 1.4s cubic-bezier(.2,.7,.2,1) .4s both}
+.hbar{display:grid;grid-template-columns:auto 96px 1fr 34px;gap:10px;align-items:center;font-size:14px;color:#D9DBE1}
+.hbar strong{color:#FFFFFF;text-align:right}
+.hbar-track{height:10px;border-radius:10px;background:#2A2D36;overflow:hidden}
+.hbar-track span{display:block;height:100%;border-radius:10px;background:linear-gradient(90deg,#A0508F,#F97243);transform-origin:left;animation:barGrow 1.2s cubic-bezier(.2,.7,.2,1) both}
+.panel-wide{grid-column:span 2}
+
+/* estimator */
+.field-lbl{margin:0 0 10px;font-size:13px;font-weight:800;letter-spacing:.6px;color:#5F6470;text-transform:uppercase}
+.src-chip{height:44px;padding:0 16px;border-radius:12px;border:1.5px solid #E7DCE4;background:#FFFFFF;font:700 14px Inter,sans-serif;color:#262A36;cursor:pointer;transition:transform .2s,border-color .2s,background-color .2s,color .2s}
+.src-chip:hover{transform:translateY(-2px);border-color:#A0508F}
+.src-chip.is-on{background:#262A36;border-color:#262A36;color:#FFFFFF}
+.stepper-row{display:flex;flex-wrap:wrap;gap:14px}
+.stepper{flex:1 1 140px}
+.stepper-ctl{display:flex;align-items:center;justify-content:space-between;height:52px;padding:0 6px;border-radius:14px;background:#FFFFFF;border:1.5px solid #E7DCE4}
+.stepper-ctl button{width:40px;height:40px;border-radius:10px;border:0;background:#F6EEF4;color:#8A3F7B;font:800 20px Inter,sans-serif;cursor:pointer;transition:background-color .2s,transform .15s}
+.stepper-ctl button:hover{background:#A0508F;color:#FFFFFF}
+.stepper-ctl button:active{transform:scale(.9)}
+.stepper-ctl strong{font-size:20px}
+.est-card{display:flex;flex-direction:column;gap:22px;padding:30px;border-radius:26px;background:#FFFFFF;box-shadow:0 30px 70px rgba(122,47,94,.14);border:1px solid #F1E6EE}
+.est-weeks{margin:4px 0 0;font-size:22px;font-weight:700;color:#4A4F59}
+.est-weeks span{font-size:72px;font-weight:800;letter-spacing:-3px;color:#A0508F;line-height:1;display:inline-block;animation:pop .45s cubic-bezier(.2,.7,.2,1)}
+.est-from{display:flex;align-items:center;gap:8px;padding:8px 10px 8px 14px;border-radius:14px;background:#F6F3F5;font-weight:800;font-size:14px}
+.est-from img{width:38px;height:38px;border-radius:10px;background:#FFFFFF}
+.est-phases{display:flex;gap:6px;height:64px}
+.est-phase{min-width:0;border-radius:12px;padding:8px 10px;color:#FFFFFF;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;transition:flex .5s cubic-bezier(.2,.7,.2,1)}
+.est-phase span{font-size:11.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.95}
+.est-phase strong{font-size:15px}
+.est-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.est-list li{display:flex;gap:10px;font-size:15px;color:#3F4450}
+
+/* industries */
+.ind-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}
+.ind{position:relative;display:flex;flex-direction:column;gap:10px;padding:22px;border-radius:22px;background:var(--bg);overflow:hidden;min-height:250px;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
+.ind::after{content:"";position:absolute;left:-20%;bottom:-60%;width:140%;height:80%;border-radius:50%;background:var(--c);opacity:.10;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.ind:hover{transform:translateY(-8px) rotate(-.8deg);box-shadow:0 26px 50px color-mix(in srgb,var(--c) 25%,transparent)}
+.ind:hover::after{transform:translateY(-40%)}
+.ind>*{position:relative;z-index:1}
+.ind-head{display:flex;justify-content:space-between;align-items:center}
+.ind-num{font-size:13px;font-weight:800;color:var(--c)}
+.ind-apps{display:flex}
+.ind-apps img{width:34px;height:34px;border-radius:10px;background:#FFFFFF;padding:3px;box-shadow:0 4px 10px rgba(38,42,54,.12);margin-left:-8px;transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+.ind:hover .ind-apps img:nth-child(1){transform:translateY(-4px) rotate(-8deg)}
+.ind:hover .ind-apps img:nth-child(2){transform:translateY(-6px)}
+.ind:hover .ind-apps img:nth-child(3){transform:translateY(-4px) rotate(8deg)}
+.ind h3{margin:6px 0 0;font-size:21px;font-weight:800;color:#262A36}
+.ind p{margin:0;font-size:14.5px;color:#3F4450}
+.ind-tags{margin-top:auto;display:flex;flex-wrap:wrap;gap:6px}
+.ind-tags span{font-size:12px;font-weight:600;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.75);color:#262A36}
+
+/* quiz */
+.quiz{width:100%;max-width:720px;padding:32px;border-radius:26px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);display:flex;flex-direction:column;gap:18px;align-items:center}
+.quiz-progress{width:100%;height:6px;border-radius:6px;background:rgba(255,255,255,.15);overflow:hidden}
+.quiz-progress span{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,#F97243,#FBC06A);transition:width .5s cubic-bezier(.2,.7,.2,1)}
+.quiz-step{margin:0;font-size:13px;font-weight:800;letter-spacing:1px;color:#F9A07E;text-transform:uppercase}
+.quiz-q{margin:0;font-size:26px;font-weight:800;letter-spacing:-.5px;animation:rise .4s cubic-bezier(.2,.7,.2,1) both}
+.quiz-opts{width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px}
+.quiz-opt{min-height:60px;padding:12px 16px;border-radius:16px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#FFFFFF;font:600 15px Inter,sans-serif;cursor:pointer;animation:pop .45s cubic-bezier(.2,.7,.2,1) both;transition:background-color .2s,border-color .2s,transform .2s}
+.quiz-opt:nth-child(2){animation-delay:.06s}.quiz-opt:nth-child(3){animation-delay:.12s}.quiz-opt:nth-child(4){animation-delay:.18s}
+.quiz-opt:hover{background:#FFFFFF;color:#4A1F45;border-color:#FFFFFF;transform:translateY(-3px)}
+.quiz-reset{height:50px;padding:0 20px;border-radius:12px;border:1.5px solid rgba(255,255,255,.4);background:transparent;color:#FFFFFF;font:700 15px Inter,sans-serif;cursor:pointer}
+.quiz-reset:hover{background:rgba(255,255,255,.12)}
+
+/* testimonial trust tiles */
+.trust{padding:22px;border-radius:20px;background:#FFFFFF;border:1px solid #EEE7EC;display:flex;flex-direction:column;gap:4px;transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s}
+.trust:hover{transform:translateY(-4px);box-shadow:0 16px 34px color-mix(in srgb,var(--c) 22%,transparent)}
+.trust strong{font-size:34px;font-weight:800;letter-spacing:-1px;color:var(--c)}
+.trust span{font-size:14px;color:#4A4F59}
+
+/* posts */
+.post{border-radius:22px;overflow:hidden;background:#FFFFFF;border:1px solid #EEE7EC;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
+.post:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(38,42,54,.12)}
+.post-cover{position:relative;aspect-ratio:16 / 9;display:flex;align-items:center;justify-content:center;gap:14px;overflow:hidden}
+.post-cover img{width:64px;height:64px;border-radius:18px;background:#FFFFFF;padding:6px;box-shadow:0 10px 24px rgba(0,0,0,.18);transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.post:hover .post-cover img:nth-child(1){transform:translateY(-8px) rotate(-8deg)}
+.post:hover .post-cover img:nth-child(2){transform:translateY(-12px)}
+.post:hover .post-cover img:nth-child(3){transform:translateY(-8px) rotate(8deg)}
+.post-date-big{display:flex;flex-direction:column;align-items:center;justify-content:center;width:110px;height:110px;border-radius:24px;background:#FFFFFF;color:#C4501F;font-weight:800;font-size:16px;letter-spacing:2px;box-shadow:0 12px 28px rgba(0,0,0,.15);transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+.post-date-big b{font-size:46px;letter-spacing:-1px;line-height:1;color:#262A36}
+.post:hover .post-date-big{transform:rotate(-6deg) scale(1.06)}
+.post-flag{position:absolute;top:14px;left:14px;display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.9);font-size:12px;font-weight:700}
+.post-city{font-size:46px;font-weight:800;letter-spacing:-1.5px;color:#FFFFFF}
+.post-body{padding:22px;display:flex;flex-direction:column;gap:8px}
+.post-meta{font-size:13px;color:#5F6470}
+.post-meta b{color:#8A3F7B}
+.post h3{margin:0;font-size:19px;line-height:1.35;font-weight:800}
+.post h3 a{color:#262A36;text-decoration:none;background:linear-gradient(#F97243,#F97243) no-repeat left bottom/0% 2px;transition:background-size .35s}
+.post:hover h3 a{background-size:100% 2px}
+
+@media (max-width: 900px){
+  .flow{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .flow-track{display:none}
+  .panel-wide{grid-column:auto}
+}
+
+
+
+
+
+/* ---------- motion ---------- */
+@keyframes dfde-rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes dfde-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes dfde-shine{0%{transform:translateX(-140%) skewX(-18deg)}55%,100%{transform:translateX(260%) skewX(-18deg)}}
+@keyframes dfde-glow{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:.85;transform:scale(1.08)}}
+@keyframes dfde-dash{to{stroke-dashoffset:-24}}
+@keyframes dfde-flow{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+@keyframes dfde-pulse{0%{box-shadow:0 0 0 0 rgba(113,75,103,.45)}100%{box-shadow:0 0 0 14px rgba(113,75,103,0)}}
+@keyframes dfde-drift{0%,100%{transform:translate(0,0)}50%{transform:translate(40px,-30px)}}
+@keyframes dfde-stripe{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+.dfde-in{animation:dfde-rise .8s cubic-bezier(.2,.7,.2,1) both}
+@supports (animation-timeline: view()){
+  .dfde-reveal{animation:dfde-rise linear both;animation-timeline:view();animation-range:entry 0% cover 25%}
+}
+
+/* ---------- section shell ---------- */
+.dfde{position:relative;overflow:hidden;font-family:Inter,system-ui,sans-serif;color:#25232A;background:linear-gradient(180deg,#F1EAF3 0%,#FAF7FB 38%,#FFFFFF 100%)}
+.dfde-grid{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(113,75,103,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(113,75,103,.07) 1px,transparent 1px);background-size:56px 56px;-webkit-mask-image:linear-gradient(180deg,#000 0%,transparent 55%);mask-image:linear-gradient(180deg,#000 0%,transparent 55%)}
+.dfde-light{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;animation:dfde-drift 18s ease-in-out infinite}
+.dfde-wrap{position:relative;max-width:1200px;margin:0 auto;padding:0 32px}
+
+/* header */
+.dfde-head{display:flex;flex-wrap:wrap;align-items:center;gap:32px}
+.dfde-partner{position:relative;flex:none;width:220px;padding:18px 22px;border-radius:20px;background:#FFFFFF;box-shadow:0 18px 44px rgba(53,35,63,.14),0 0 0 1px rgba(113,75,103,.08);overflow:hidden;animation:dfde-float 6s ease-in-out infinite}
+.dfde-partner img{display:block;width:100%;height:auto;position:relative;z-index:1}
+.dfde-partner::after{content:"";position:absolute;inset:0;z-index:2;width:45%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.75),transparent);animation:dfde-shine 4.5s ease-in-out infinite;pointer-events:none}
+.dfde-partner-halo{position:absolute;inset:-30px;z-index:0;border-radius:50%;background:radial-gradient(circle,rgba(228,169,0,.18),transparent 65%);animation:dfde-glow 4s ease-in-out infinite}
+.dfde-divider{width:1px;align-self:stretch;min-height:120px;background:linear-gradient(180deg,transparent,rgba(113,75,103,.35),transparent)}
+.dfde-flagbar{display:flex;width:84px;height:5px;border-radius:5px;overflow:hidden;margin-bottom:16px;transform-origin:left;animation:dfde-stripe .9s cubic-bezier(.2,.7,.2,1) .3s both}
+.dfde-flagbar span{flex:1}
+.dfde-eyebrow{margin:0 0 10px;font-size:13px;font-weight:800;letter-spacing:1.4px;color:#714B67;text-transform:uppercase}
+.dfde-h2{margin:0 0 12px;font-size:52px;line-height:1.05;font-weight:800;letter-spacing:-1.6px;color:#25232A}
+.dfde-h2 em{font-style:normal;background:linear-gradient(90deg,#714B67,#A35A8E,#714B67);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:dfde-flow-text 6s ease-in-out infinite}
+@keyframes dfde-flow-text{0%,100%{background-position:0% 0}50%{background-position:100% 0}}
+.dfde-sub{margin:0 0 12px;font-size:20px;font-weight:600;color:#35233F;max-width:720px}
+.dfde-desc{margin:0;font-size:16.5px;line-height:1.6;color:#4E4756;max-width:720px}
+.dfde-pos{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.dfde-pos span{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px;border-radius:999px;background:#FFFFFF;border:1px solid #E6DAE8;font-size:13px;font-weight:600;color:#35233F}
+.dfde-pos span::before{content:"";width:6px;height:6px;border-radius:50%;background:#714B67}
+
+/* platform cards */
+.dfde-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.dfde-card{position:relative;display:flex;flex-direction:column;gap:12px;min-height:250px;padding:22px;border-radius:18px;background:#FFFFFF;border:1px solid #ECE3EE;box-shadow:0 4px 14px rgba(53,35,63,.06);overflow:hidden;cursor:pointer;text-align:left;font:inherit;color:inherit;animation:dfde-rise .6s cubic-bezier(.2,.7,.2,1) both;transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s ease,border-color .3s ease}
+.dfde-card:hover,.dfde-card:focus-visible,.dfde-card.is-on{transform:translateY(-6px);border-color:rgba(113,75,103,.45);box-shadow:0 22px 46px rgba(113,75,103,.18),0 0 0 3px rgba(113,75,103,.10);outline:none}
+.dfde-logo{height:76px;display:flex;align-items:center;justify-content:flex-start}
+.dfde-logo img{max-height:64px;max-width:170px;width:auto;height:auto;object-fit:contain;transition:transform .3s ease}
+.dfde-card:hover .dfde-logo img,.dfde-card:focus-visible .dfde-logo img{transform:scale(1.05)}
+.dfde-wordmark{display:flex;flex-direction:column;justify-content:center;transition:transform .3s ease;transform-origin:left center}
+.dfde-card:hover .dfde-wordmark{transform:scale(1.05)}
+.dfde-wordmark strong{font-size:26px;font-weight:800;letter-spacing:-.4px;color:#25232A}
+.dfde-wordmark span{font-size:12.5px;color:#6A6371;font-weight:600}
+.dfde-cat{font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#6A6371}
+.dfde-badges{display:flex;flex-wrap:wrap;gap:6px}
+.dfde-badge{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-radius:999px;font-size:11.5px;font-weight:700}
+.dfde-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.b-native{background:#EAF6EF;color:#1B6B43}
+.b-datev{background:#EEF7E3;color:#3F6B10}
+.b-file{background:#F1EAF3;color:#5A3A52}
+.b-api{background:#E9F0FB;color:#1F4E9A}
+.b-custom{background:#FFF3DF;color:#7A4D00}
+.b-feas{background:#F3F2F5;color:#4E4756;border:1px dashed #B9B1C0}
+.dfde-card-desc{margin:0;font-size:14.5px;line-height:1.5;color:#4E4756;max-height:0;opacity:0;transform:translateY(6px);transition:max-height .35s ease,opacity .3s ease,transform .3s ease}
+.dfde-card:hover .dfde-card-desc,.dfde-card:focus-visible .dfde-card-desc,.dfde-card.is-on .dfde-card-desc{max-height:140px;opacity:1;transform:none}
+.dfde-hint{margin-top:auto;font-size:12.5px;font-weight:600;color:#714B67;transition:opacity .2s}
+.dfde-card:hover .dfde-hint{opacity:0}
+.dfde-line{position:absolute;left:0;right:0;bottom:0;height:3px;background:#F1EAF3;overflow:hidden}
+.dfde-line::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,#714B67,#FFCE00,transparent);transform:translateX(-100%)}
+.dfde-card:hover .dfde-line::after,.dfde-card:focus-visible .dfde-line::after,.dfde-card.is-on .dfde-line::after{animation:dfde-flow 1.4s linear infinite}
+@media (hover: none){
+  .dfde-card-desc{max-height:none;opacity:1;transform:none}
+  .dfde-hint{display:none}
+}
+
+/* diagram */
+.dfde-diagram{position:relative;border-radius:28px;padding:30px;background:radial-gradient(ellipse at 50% 40%,#4A3155 0%,#35233F 45%,#25232A 100%);color:#FFFFFF;overflow:hidden;box-shadow:0 40px 80px rgba(53,35,63,.25)}
+.dfde-diagram::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(241,234,243,.12) 1px,transparent 1.2px);background-size:22px 22px;pointer-events:none}
+.dfde-flows{position:relative;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.dfde-flow{height:36px;padding:0 14px;border-radius:999px;border:1px solid rgba(241,234,243,.25);background:rgba(255,255,255,.05);color:#F1EAF3;font:600 13px Inter,sans-serif;cursor:pointer;transition:background-color .25s,border-color .25s,color .25s}
+.dfde-flow:hover{border-color:#F1EAF3}
+.dfde-flow.is-on{background:#F1EAF3;color:#35233F;border-color:#F1EAF3}
+.dfde-stage{position:relative;width:100%;aspect-ratio:1000 / 600;margin-top:10px}
+.dfde-links{position:absolute;inset:0}
+.dfde-ln{position:absolute;left:50%;top:50%;height:2px;margin-top:-1px;transform-origin:0 50%;background:rgba(241,234,243,.30);transition:background-color .3s,height .3s,opacity .3s}
+.dfde-ln.dash{background:repeating-linear-gradient(90deg,rgba(241,234,243,.45) 0 7px,transparent 7px 14px);background-size:28px 100%;animation:dfde-dashmove 1.2s linear infinite}
+@keyframes dfde-dashmove{to{background-position:28px 0}}
+.dfde-ln.on{background:#FFCE00;height:3px;box-shadow:0 0 12px rgba(255,206,0,.6)}
+.dfde-ln.dim{opacity:.22}
+.dfde-pt{position:absolute;top:50%;left:0;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;box-shadow:0 0 10px currentColor;animation:dfde-travel 2.6s cubic-bezier(.45,0,.55,1) infinite}
+.dfde-pt.back{background:#7FB2FF;width:8px;height:8px;margin:-4px 0 0 -4px;animation-name:dfde-travel-back;animation-delay:-1.2s}
+.dfde-pt.hide{display:none}
+.dfde-pt.dim{opacity:.2}
+@keyframes dfde-travel{0%{left:12%;opacity:0}10%{opacity:1}90%{opacity:1}100%{left:100%;opacity:0}}
+@keyframes dfde-travel-back{0%{left:100%;opacity:0}10%{opacity:1}90%{opacity:1}100%{left:12%;opacity:0}}
+.dfde-core{position:absolute;left:50%;top:50%;width:200px;height:200px;margin:-100px 0 0 -100px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:#FFFFFF;box-shadow:0 0 0 10px rgba(241,234,243,.10),0 0 0 22px rgba(241,234,243,.05),0 20px 60px rgba(0,0,0,.35);animation:dfde-pulse 2.6s ease-out infinite}
+.dfde-core img{width:132px;height:auto}
+.dfde-core span{font-size:11px;font-weight:800;letter-spacing:1.6px;color:#714B67}
+.dfde-node{position:absolute;transform:translate(-50%,-50%);min-width:120px;height:48px;padding:0 14px;border-radius:14px;border:1px solid rgba(241,234,243,.22);background:rgba(37,35,42,.85);color:#FFFFFF;font:700 14px Inter,sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;backdrop-filter:blur(6px);transition:transform .3s cubic-bezier(.2,.7,.2,1),background-color .3s,border-color .3s,box-shadow .3s,opacity .3s}
+.dfde-node:hover{transform:translate(-50%,-50%) scale(1.06);border-color:#F1EAF3}
+.dfde-node.is-on{background:#F1EAF3;color:#35233F;border-color:#FFCE00;box-shadow:0 0 0 4px rgba(255,206,0,.25)}
+.dfde-node.dim{opacity:.35}
+.dfde-node i{width:8px;height:8px;border-radius:50%;flex:none}
+.dot-native{background:#5BD08E}.dot-file{background:#CFA6C8}.dot-api{background:#7FB2FF}.dot-feas{background:transparent;border:1.5px dashed #F1EAF3}
+.dfde-info{position:relative;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px;margin-top:18px;padding:22px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid rgba(241,234,243,.14)}
+.dfde-info h3{margin:0 0 6px;font-size:22px;font-weight:800}
+.dfde-info p{margin:0;font-size:15px;line-height:1.55;color:#E6DAE8}
+.dfde-info-flows{display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start}
+.dfde-info-flows span{height:30px;padding:0 12px;border-radius:999px;background:rgba(241,234,243,.12);font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;animation:dfde-rise .35s ease both}
+.dfde-warn{display:inline-flex;margin-top:12px;padding:8px 12px;border-radius:10px;border:1px dashed rgba(255,206,0,.6);color:#FFE27A;font-size:13px;font-weight:600}
+.dfde-legend{position:relative;display:flex;flex-wrap:wrap;gap:18px;justify-content:center;margin-top:16px;font-size:13px;color:#E6DAE8}
+.dfde-legend span{display:inline-flex;align-items:center;gap:8px}
+.dfde-legend i{width:10px;height:10px;border-radius:50%}
+
+/* localization */
+.dfde-loc{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:18px}
+.dfde-loc-card{position:relative;padding:24px;border-radius:20px;background:#FFFFFF;border:1px solid #ECE3EE;box-shadow:0 6px 18px rgba(53,35,63,.06);transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s}
+.dfde-loc-card:hover{transform:translateY(-6px);box-shadow:0 22px 44px rgba(113,75,103,.16)}
+.dfde-loc-card::before{content:"";position:absolute;left:24px;right:24px;top:0;height:4px;border-radius:0 0 4px 4px;background:linear-gradient(90deg,#000000 0 33%,#DD0000 33% 66%,#FFCE00 66%);opacity:.85;transform:scaleX(.25);transform-origin:left;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.dfde-loc-card:hover::before{transform:scaleX(1)}
+.dfde-loc-ico{width:48px;height:48px;border-radius:14px;background:#F1EAF3;display:flex;align-items:center;justify-content:center;margin-bottom:14px;color:#714B67}
+.dfde-loc-card h3{margin:0 0 14px;font-size:19px;font-weight:800;color:#25232A}
+.dfde-loc-card ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.dfde-loc-card li{display:flex;flex-direction:column;gap:3px;font-size:14.5px;color:#35233F;font-weight:600}
+.dfde-loc-card li small{font-size:11.5px;font-weight:700;letter-spacing:.3px}
+.t-native{color:#1B6B43}.t-config{color:#5A3A52}.t-custom{color:#7A4D00}.t-ext{color:#1F4E9A}
+.dfde-key{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:#4E4756}
+.dfde-key span{display:inline-flex;align-items:center;gap:6px;font-weight:600}
+
+/* CTA */
+.dfde-cta{position:relative;overflow:hidden;border-radius:28px;padding:48px;background:linear-gradient(120deg,#35233F 0%,#714B67 55%,#8E5C81 100%);background-size:200% 200%;animation:dfde-bg 14s ease infinite;color:#FFFFFF;display:flex;flex-wrap:wrap;gap:36px;align-items:center}
+@keyframes dfde-bg{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.dfde-cta h2{margin:0 0 12px;font-size:36px;line-height:1.12;font-weight:800;letter-spacing:-1px}
+.dfde-cta p{margin:0 0 24px;font-size:16.5px;line-height:1.6;color:#F1EAF3}
+.dfde-btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:10px;height:56px;padding:0 28px;border-radius:14px;background:#FFFFFF;color:#35233F;font-weight:800;font-size:16px;text-decoration:none;transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s}
+.dfde-btn:hover{color:#35233F;transform:translateY(-3px);box-shadow:0 16px 34px rgba(0,0,0,.25)}
+.dfde-btn::after{content:"";position:absolute;inset:0;width:40%;background:linear-gradient(90deg,transparent,rgba(113,75,103,.18),transparent);animation:dfde-shine 3.5s ease-in-out infinite}
+.dfde-btn svg{transition:transform .3s}
+.dfde-btn:hover svg{transform:translateX(5px)}
+.dfde-contact{flex:0 1 330px;display:flex;gap:16px;align-items:center;padding:18px;border-radius:20px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18)}
+.dfde-contact img{width:76px;height:76px;border-radius:50%;object-fit:cover;object-position:top;flex:none;border:3px solid rgba(255,255,255,.7)}
+.dfde-contact a{color:#FFFFFF;text-decoration:none;font-size:14px}
+.dfde-contact a:hover{text-decoration:underline;color:#FFFFFF}
+
+@media (max-width: 860px){
+  .dfde-h2{font-size:36px}
+  .dfde-divider{display:none}
+  .dfde-info{grid-template-columns:1fr}
+  .dfde-node{min-width:0;height:36px;padding:0 8px;font-size:11px;border-radius:10px}
+  .dfde-core{width:110px;height:110px;margin:-55px 0 0 -55px}
+  .dfde-core img{width:76px}
+  .dfde-cta{padding:28px}
+}
+@media (prefers-reduced-motion: reduce){
+  .dfde *,.dfde *::before,.dfde *::after{animation:none !important;transition:none !important}
+}
+
+/* Odoo Gold Partner logo */
+.gold-pill{position:relative;overflow:hidden;margin:0;display:inline-flex;align-items:center;gap:12px;background:#FFFFFF;border:1px solid #EEDDEA;border-radius:999px;padding:8px 18px 8px 14px;font-size:14px;font-weight:700;color:#6E2F62;box-shadow:0 6px 20px rgba(160,80,143,.14)}
+.gold-pill::after,.gold-chip::after{content:"";position:absolute;inset:0;width:40%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.85),transparent);animation:dfde-shine 4.5s ease-in-out infinite;pointer-events:none}
+.gold-chip{position:relative;overflow:hidden;display:inline-flex;align-items:center;padding:6px 10px;border-radius:10px;background:#FFFFFF;animation:dfde-float 5s ease-in-out infinite}
+.gold-chip img{height:28px;width:auto;display:block}
+/* scroll progress */
+.scroll-bar{position:fixed;left:0;top:0;height:4px;width:100%;z-index:60;background:linear-gradient(90deg,#A0508F,#F97243);transform-origin:left;transform:scaleX(0)}
+@supports (animation-timeline: scroll()){.scroll-bar{animation:barGrow linear both;animation-timeline:scroll(root)}}
+@keyframes barGrow{to{transform:scaleX(1)}}
+
+/* shimmering accent words */
+.shimmer-text{background:linear-gradient(100deg,#A0508F 0%,#A0508F 35%,#F97243 50%,#A0508F 65%,#A0508F 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 5s ease-in-out infinite}
+.foot .shimmer-text{background-image:linear-gradient(100deg,#CFA6C8 0%,#CFA6C8 35%,#F97243 50%,#CFA6C8 65%,#CFA6C8 100%);font-weight:700}
+@keyframes shimmer{0%{background-position:100% 0}60%,100%{background-position:0% 0}}
+
+/* footer */
+.foot{position:relative;overflow:hidden;background:#1F1F23;color:#D9DBE1}
+.foot-line{position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,#A0508F,#F97243,#CFA6C8,#A0508F);background-size:300% 100%;animation:gradient 8s linear infinite}
+.f-mail{position:relative;display:inline-flex;align-items:center;height:44px;padding:0 18px;border-radius:999px;color:#FFFFFF;text-decoration:none;font-weight:600;font-size:15px;isolation:isolate}
+.f-mail::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:linear-gradient(90deg,#A0508F,#F97243,#CFA6C8,#A0508F);background-size:300% 100%;animation:gradient 6s linear infinite;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;z-index:-1}
+.f-mail:hover{color:#FFFFFF;background:rgba(160,80,143,.25)}
+.f-top{position:relative;flex:none;width:120px;height:120px;display:flex;align-items:center;justify-content:center;color:#FFFFFF;text-decoration:none}
+.f-top-ring{position:absolute;inset:0;width:100%;height:100%;animation:spin 14s linear infinite}
+.f-top:hover .f-top-ring{animation-duration:4s}
+.f-top-core{width:58px;height:58px;border-radius:50%;background:#A0508F;display:flex;align-items:center;justify-content:center;transition:transform .3s cubic-bezier(.3,1.6,.5,1),background-color .2s}
+.f-top:hover .f-top-core{transform:translateY(-6px) scale(1.08);background:#F97243;color:#1F1F23}
+@keyframes spin{to{transform:rotate(360deg)}}
+.f-clocks{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:14px 16px;border:1px solid #33363F;border-radius:16px;background:rgba(255,255,255,.03)}
+.f-clocks-label{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#CFA6C8;margin-right:6px}
+.f-live{position:relative;width:8px;height:8px;border-radius:50%;background:#3DDC84}
+.f-live::before{content:"";position:absolute;inset:0;border-radius:50%;background:#3DDC84;animation:pulse 1.8s ease-out infinite}
+.f-clock{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;background:#2A2C33;font-size:13.5px;transition:transform .2s,background-color .2s}
+.f-clock:hover{transform:translateY(-2px);background:#33363F}
+.f-clock strong{color:#FFFFFF;font-variant-numeric:tabular-nums}
+.f-city{color:#B9BCC6}
+.f-state{font-size:11px;font-weight:700;padding:1px 7px;border-radius:999px}
+.f-state.open{background:rgba(61,220,132,.15);color:#7BE8AB}
+.f-state.closed{background:rgba(255,255,255,.08);color:#B9BCC6}
+.f-head{display:flex;align-items:center;gap:8px;margin:0 0 16px;font-size:13px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#CFA6C8}
+.f-dot{width:7px;height:7px;border-radius:50%;background:#F97243;animation:bounce 2.4s cubic-bezier(.3,.6,.3,1) infinite}
+.f-col:nth-child(2) .f-dot{animation-delay:.2s}.f-col:nth-child(3) .f-dot{animation-delay:.4s}.f-col:nth-child(4) .f-dot{animation-delay:.6s}.f-col:nth-child(5) .f-dot{animation-delay:.8s}.f-col:nth-child(6) .f-dot{animation-delay:1s}
+.f-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.f-link{position:relative;display:inline-flex;align-items:center;gap:6px;color:#F9A07E;text-decoration:none;font-size:15px;transition:color .2s,transform .25s cubic-bezier(.2,.7,.2,1)}
+.f-link svg{opacity:0;transform:translateX(-6px);transition:opacity .2s,transform .25s}
+.f-link::after{content:"";position:absolute;left:0;right:20px;bottom:-3px;height:1.5px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+.f-link:hover{color:#FFFFFF;transform:translateX(4px)}
+.f-link:hover svg{opacity:1;transform:none}
+.f-link:hover::after{transform:scaleX(1)}
+.f-news{display:flex;flex-wrap:wrap;align-items:center;gap:28px;padding:32px;border-radius:22px;background:linear-gradient(135deg,rgba(160,80,143,.22),rgba(249,114,67,.10));border:1px solid rgba(207,166,200,.18)}
+.f-form{display:flex;gap:10px}
+.f-input{flex:1;min-width:0;height:52px;border-radius:12px;border:1.5px solid transparent;background:#FFFFFF;color:#262A36;padding:0 16px;font:400 15px Inter,sans-serif;transition:box-shadow .25s,border-color .25s}
+.f-input:focus{outline:none;border-color:#F97243;box-shadow:0 0 0 5px rgba(249,114,67,.25)}
+.f-sub{position:relative;overflow:hidden;height:52px;padding:0 22px;border:0;border-radius:12px;background:#F97243;color:#1F1F23;font:700 15px Inter,sans-serif;display:flex;align-items:center;gap:10px;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.f-sub:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(249,114,67,.35)}
+.f-plane{transition:transform .45s cubic-bezier(.3,1.4,.5,1)}
+.f-sub:hover .f-plane{transform:translate(4px,-4px) rotate(-8deg)}
+.f-legal{color:#F9A07E;text-decoration:none;position:relative}
+.f-legal:hover{color:#FFFFFF}
+.f-gold{display:inline-flex;align-items:center;gap:8px;color:#F3D27A;font-weight:600}
+.f-gold-dot{width:10px;height:10px;border-radius:50%;background:#E4A900;box-shadow:0 0 0 0 rgba(228,169,0,.6);animation:goldPulse 2.2s ease-out infinite}
+@keyframes goldPulse{0%{box-shadow:0 0 0 0 rgba(228,169,0,.55)}100%{box-shadow:0 0 0 12px rgba(228,169,0,0)}}
+.f-giant{position:relative;display:flex;justify-content:center;align-items:baseline;margin-top:40px;font-weight:800;font-size:clamp(64px,15.5vw,230px);line-height:.78;letter-spacing:-.05em;white-space:nowrap;user-select:none;-webkit-text-stroke:1.5px rgba(207,166,200,.35);color:transparent;transform:translateY(12%)}
+.f-giant span{-webkit-text-fill-color:transparent;background:linear-gradient(180deg,currentColor,currentColor) no-repeat;-webkit-background-clip:text;background-clip:text;background-size:100% 0%;background-position:bottom;transition:background-size .8s cubic-bezier(.2,.7,.2,1)}
+.f-giant-doo{color:#A0508F}.f-giant-dot{color:#F97243}.f-giant-fin{color:#F97243}
+.f-giant:hover span{background-size:100% 100%}
+@supports (animation-timeline: view()){
+  .f-giant span{animation:fillUp linear both;animation-timeline:view();animation-range:entry 10% cover 55%}
+  .f-giant-dot{animation-range:entry 20% cover 60%}
+  .f-giant-fin{animation-range:entry 25% cover 70%}
+}
+@keyframes fillUp{from{background-size:100% 0%}to{background-size:100% 100%}}
+
+/* language switcher */
+.lang-wrap{position:relative}
+.lang-btn{height:44px;display:flex;align-items:center;gap:8px;padding:0 12px;border-radius:999px;border:2px solid #CFA6C8;background:#FFFFFF;color:#262A36;font:600 14px Inter,sans-serif;cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.lang-btn:hover,.lang-btn[aria-expanded="true"]{border-color:#A0508F;box-shadow:0 0 0 4px rgba(160,80,143,.12)}
+.lang-caret{transition:transform .25s}
+.lang-btn[aria-expanded="true"] .lang-caret{transform:rotate(180deg)}
+.lang-menu{position:absolute;right:0;top:calc(100% + 10px);width:330px;background:#FFFFFF;border:1px solid #EEE7EC;border-radius:16px;box-shadow:0 24px 60px rgba(38,42,54,.18);padding:10px;z-index:50;transform-origin:top right;animation:menuIn .25s cubic-bezier(.2,.7,.2,1) both}
+@keyframes menuIn{from{opacity:0;transform:translateY(-8px) scale(.97)}to{opacity:1;transform:none}}
+.lang-head{margin:4px 10px 8px;font-size:12px;font-weight:700;letter-spacing:.4px;color:#5F6470;text-transform:uppercase}
+.lang-row{display:flex;align-items:center;justify-content:space-between;gap:8px;border-radius:10px;padding:2px 6px 2px 2px;opacity:0;animation:rise .35s cubic-bezier(.2,.7,.2,1) forwards}
+.lang-row:nth-child(2){animation-delay:.02s}.lang-row:nth-child(3){animation-delay:.04s}.lang-row:nth-child(4){animation-delay:.06s}.lang-row:nth-child(5){animation-delay:.08s}.lang-row:nth-child(6){animation-delay:.1s}.lang-row:nth-child(7){animation-delay:.12s}.lang-row:nth-child(8){animation-delay:.14s}.lang-row:nth-child(9){animation-delay:.16s}.lang-row:nth-child(10){animation-delay:.18s}.lang-row:nth-child(11){animation-delay:.2s}
+.lang-row:hover{background:#FBF6FA}
+.lang-row.is-current{background:#F4E9F1}
+.lang-cty{flex:1;display:flex;align-items:center;gap:12px;min-height:40px;padding:0 10px;border:0;background:transparent;color:#262A36;font:500 15px Inter,sans-serif;text-align:left;cursor:pointer}
+.lang-pills{display:flex;gap:4px}
+.lang-pill{min-width:36px;height:28px;padding:0 8px;border-radius:999px;border:1px solid #E7DCE4;background:#FFFFFF;color:#4A4F59;font:700 11px Inter,sans-serif;letter-spacing:.4px;cursor:pointer;transition:background-color .2s,color .2s,border-color .2s}
+.lang-pill:hover{border-color:#A0508F;color:#8A3F7B}
+.lang-pill.is-on{background:#A0508F;border-color:#A0508F;color:#FFFFFF}
+.flag-AM{background:linear-gradient(#D90012 0 33.3%,#0033A0 33.3% 66.6%,#F2A800 66.6%)}
+.flag-AE{background:linear-gradient(90deg,#FF0000 0 26%,transparent 26%),linear-gradient(#00732F 0 33.3%,#FFFFFF 33.3% 66.6%,#000000 66.6%)}
+.flag-GB{background:linear-gradient(90deg,transparent 42%,#C8102E 42% 58%,transparent 58%),linear-gradient(transparent 36%,#C8102E 36% 64%,transparent 64%),linear-gradient(90deg,transparent 36%,#FFFFFF 36% 64%,transparent 64%),linear-gradient(transparent 26%,#FFFFFF 26% 74%,transparent 74%),#012169}
+
+/* national managers */
+.chip{height:44px;padding:0 16px;border-radius:999px;font:600 14px Inter,sans-serif;cursor:pointer;transition:background-color .2s,color .2s,transform .2s}
+.chip:hover{transform:translateY(-2px)}
+.chip-on{border:1px solid #A0508F;background:#A0508F;color:#FFFFFF}
+.chip-off{border:1px solid #E7DCE4;background:#FFFFFF;color:#262A36}
+.flag{display:inline-block;flex:none;width:18px;height:12px;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+.flag-LU{background:linear-gradient(#EF3340 0 33.3%,#FFFFFF 33.3% 66.6%,#00A3E0 66.6%)}
+.flag-FR{background:linear-gradient(90deg,#0055A4 0 33.3%,#FFFFFF 33.3% 66.6%,#EF4135 66.6%)}
+.flag-IT{background:linear-gradient(90deg,#009246 0 33.3%,#FFFFFF 33.3% 66.6%,#CE2B37 66.6%)}
+.flag-BE{background:linear-gradient(90deg,#000000 0 33.3%,#FDDA24 33.3% 66.6%,#EF3340 66.6%)}
+.flag-NL{background:linear-gradient(#AE1C28 0 33.3%,#FFFFFF 33.3% 66.6%,#21468B 66.6%)}
+.flag-DE{background:linear-gradient(#000000 0 33.3%,#DD0000 33.3% 66.6%,#FFCE00 66.6%)}
+.flag-US{background:linear-gradient(#3C3B6E,#3C3B6E) top left/45% 54% no-repeat,repeating-linear-gradient(#B22234 0 1.7px,#FFFFFF 1.7px 3.4px)}
+.mgr{position:relative;background:#FFFFFF;border:1px solid #EEE7EC;border-radius:18px;overflow:hidden;animation:pop .5s cubic-bezier(.2,.7,.2,1) both;transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease}
+.mgr:hover,.mgr:focus-within{transform:translateY(-6px);box-shadow:0 22px 48px rgba(160,80,143,.22)}
+.mgr-photo{position:relative;aspect-ratio:288 / 400;overflow:hidden;background:#F4EEF2}
+.mgr-photo img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.mgr:hover .mgr-photo img,.mgr:focus-within .mgr-photo img{transform:scale(1.07)}
+.mgr-tag{position:absolute;top:12px;left:12px;background:rgba(255,255,255,.92);color:#6E2F62;font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;letter-spacing:.5px}
+.mgr-tag::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#F97243;margin-right:6px;vertical-align:1px}
+.mgr-panel{position:absolute;left:0;right:0;bottom:0;padding:56px 18px 18px;color:#FFFFFF;font-size:13.5px;line-height:1.4;display:flex;flex-direction:column;gap:10px;background:linear-gradient(to top,rgba(94,38,83,.98) 0%,rgba(140,66,124,.95) 62%,rgba(160,80,143,0) 100%);transform:translateY(101%);transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.mgr:hover .mgr-panel,.mgr:focus-within .mgr-panel{transform:none}
+.mgr-row{display:flex;gap:10px;align-items:flex-start;color:#FFFFFF;text-decoration:none;opacity:0;transform:translateY(12px);transition:opacity .35s ease,transform .35s ease}
+.mgr-row svg{flex:none;margin-top:2px}
+a.mgr-row:hover span{text-decoration:underline}
+.mgr:hover .mgr-row,.mgr:focus-within .mgr-row{opacity:1;transform:none}
+.mgr-btn{display:inline-flex;align-items:center;height:40px;padding:0 16px;border-radius:10px;background:#FFFFFF;color:#8A3F7B;font-weight:700;text-decoration:none;transition:background-color .2s}
+.mgr-btn:hover{background:#FBEFF7;color:#6E2F62}
+.mgr-sample{font-size:11px;font-weight:600;border:1px solid rgba(255,255,255,.55);border-radius:999px;padding:2px 8px}
+@media (hover: none){
+  .mgr-panel{position:static;transform:none;padding:16px;background:#8C427C}
+  .mgr-row{opacity:1;transform:none}
+}
+
+@media (max-width: 1400px){ .hide-md{display:none !important} }
+@media (max-width: 760px){
+  .hide-sm{display:none !important}
+  .hero-h1{font-size:40px !important}
+  .sec-h2{font-size:30px !important}
+  .float-card{display:none !important}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none !important;transition:none !important}
+}
+
+</style>
+</head>
+<body>
+<div id="app"></div>
+<template id="page">
+
+<div style="font-family: Inter, system-ui, sans-serif; color: #262A36; width: 100%; min-height: 100vh; background: #FFFFFF; line-height: 1.5; overflow-x: hidden">
+
+  <div aria-hidden="true" class="scroll-bar"></div>
+  <!-- HEADER -->
+  <header class="a-rise" style="position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.85); backdrop-filter: blur(12px); border-bottom: 1px solid #EEE7EC">
+    <div style="max-width: 1360px; margin: 0 auto; padding: 14px 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+      <div style="display: flex; align-items: center; gap: 32px">
+        <a href="#top" aria-label="doo.FINANCE home" style="display: flex"><img src="assets/doo-finance-logo.png" alt="doo.FINANCE" style="height: 26px; width: auto; display: block"></a>
+        <nav aria-label="Main" class="hide-sm" style="display: flex; gap: 22px; font-size: 14.5px; font-weight: 500; white-space: nowrap">
+          <a href="#services" class="nav-a">{{t.services}}</a>
+          <a href="#apps" class="nav-a">{{t.apps}}</a>
+          <a href="#industries" class="nav-a">{{t.industries}}</a>
+          <a href="#german-ecosystem" class="nav-a">{{t.germany}}</a>
+          <a href="#team" class="nav-a">{{t.people}}</a>
+          <a href="#insights" class="nav-a">{{t.insights}}</a>
+        </nav>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px">
+        <a href="#contact" class="hide-sm hide-md" style="color: #262A36; text-decoration: none; font-size: 15px; font-weight: 500; height: 44px; padding: 0 16px; border-radius: 10px; display: flex; align-items: center">{{t.contact}}</a>
+        <a href="#diagnostic" class="shine btn-p" style="background: #A0508F; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px; height: 44px; padding: 0 20px; border-radius: 10px; display: flex; align-items: center">{{t.cta}}</a>
+
+        <!-- Country / language switcher -->
+        <div class="lang-wrap">
+          <button type="button" class="lang-btn" onClick="{{toggleLang}}" aria-haspopup="true" aria-expanded="{{langExpanded}}" aria-label="Choose country and language">
+            <sc-if value="{{isGlobal}}" hint-placeholder-val="{{ true }}">
+              <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#A0508F" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>
+            </sc-if>
+            <sc-if value="{{notGlobal}}" hint-placeholder-val="{{ false }}">
+              <span aria-hidden="true" class="flag flag-{{curCode}}"></span>
+            </sc-if>
+            <span class="lang-code">{{curLang}}</span>
+            <svg aria-hidden="true" class="lang-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <sc-if value="{{langOpen}}" hint-placeholder-val="{{ false }}">
+            <div class="lang-menu" role="menu">
+              <p class="lang-head">{{t.choose}}</p>
+              <sc-for list="{{sites}}" as="site" hint-placeholder-count="10">
+                <div class="lang-row {{site.cls}}">
+                  <button type="button" class="lang-cty" onClick="{{site.pick}}" role="menuitem">
+                    <sc-if value="{{site.globe}}" hint-placeholder-val="{{ false }}">
+                      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A0508F" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>
+                    </sc-if>
+                    <sc-if value="{{site.hasFlag}}" hint-placeholder-val="{{ true }}">
+                      <span aria-hidden="true" class="flag flag-{{site.code}}"></span>
+                    </sc-if>
+                    <span>{{site.name}}</span>
+                  </button>
+                  <span class="lang-pills">
+                    <sc-for list="{{site.langs}}" as="l" hint-placeholder-count="2">
+                      <button type="button" class="lang-pill {{l.cls}}" onClick="{{l.pick}}" aria-label="{{l.aria}}">{{l.code}}</button>
+                    </sc-for>
+                  </span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" style="position: relative; padding: 88px 32px 0; background: linear-gradient(180deg, #FBF6FA 0%, #FFFFFF 70%); overflow: hidden">
+    <!-- drifting brand blobs -->
+    <div aria-hidden="true" class="blob1" style="position: absolute; width: 460px; height: 460px; left: -120px; top: -80px; border-radius: 50%; background: #CFA6C8; opacity: .45; filter: blur(70px)"></div>
+    <div aria-hidden="true" class="blob2" style="position: absolute; width: 380px; height: 380px; right: -90px; top: 40px; border-radius: 50%; background: #F97243; opacity: .22; filter: blur(80px)"></div>
+    <div aria-hidden="true" class="blob3" style="position: absolute; width: 300px; height: 300px; left: 45%; top: 300px; border-radius: 50%; background: #A0508F; opacity: .14; filter: blur(80px)"></div>
+
+    <!-- floating Odoo app icons -->
+    <div aria-hidden="true" class="hide-sm">
+      <span class="hero-app fl1" style="left: 7%; top: 120px"><img src="assets/odoo-apps/accounting.png" alt=""></span>
+      <span class="hero-app fl2" style="left: 13%; top: 300px"><img src="assets/odoo-apps/payroll.png" alt=""></span>
+      <span class="hero-app fl3" style="left: 3.5%; top: 440px"><img src="assets/odoo-apps/expenses.png" alt=""></span>
+      <span class="hero-app fl4" style="right: 8%; top: 110px"><img src="assets/odoo-apps/dashboards.png" alt=""></span>
+      <span class="hero-app fl5" style="right: 14%; top: 290px"><img src="assets/odoo-apps/documents.png" alt=""></span>
+      <span class="hero-app fl6" style="right: 4%; top: 430px"><img src="assets/odoo-apps/sign.png" alt=""></span>
+    </div>
+    <div style="position: relative; max-width: 960px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 24px">
+      <p class="a-pop d1 gold-pill">
+        <img src="assets/odoo-gold-partner.png" alt="Odoo Gold Partner" style="height: 36px; width: auto; display: block"><span>since 2022</span>
+      </p>
+
+      <h1 class="hero-h1" style="margin: 0; font-size: 68px; line-height: 1.06; font-weight: 800; letter-spacing: -2.2px; color: #262A36">
+        <span class="a-rise d2" style="display: block">{{t.heroLine}}</span>
+        <span class="a-rise d3" style="display: inline-flex; align-items: baseline; gap: 6px">
+          <span style="display: inline-block; height: 1.12em; overflow: hidden; vertical-align: bottom; position: relative">
+            <span class="word-wheel" style="display: flex; flex-direction: column; color: #A0508F">
+              <span style="height: 1.12em; display: block">{{t.w1}}</span>
+              <span style="height: 1.12em; display: block">{{t.w2}}</span>
+              <span style="height: 1.12em; display: block">{{t.w3}}</span>
+              <span style="height: 1.12em; display: block">{{t.w4}}</span>
+            </span>
+          </span><span class="dot-bounce" aria-hidden="true" style="display: inline-block; width: .2em; height: .2em; border-radius: 50%; background: #F97243"></span>
+        </span>
+      </h1>
+
+      <p class="a-rise d4" style="margin: 0; font-size: 20px; color: #4A4F59; max-width: 660px">{{t.sub}}</p>
+      <div class="a-rise d5" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; padding-top: 4px">
+        <a href="#diagnostic" class="shine btn-p" style="background: #A0508F; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 17px; height: 56px; padding: 0 30px; border-radius: 12px; display: flex; align-items: center; gap: 10px">{{t.btn1}}
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="#services" class="btn-p" style="background: #FFFFFF; border: 1px solid #E7DCE4; color: #262A36; text-decoration: none; font-weight: 600; font-size: 17px; height: 56px; padding: 0 30px; border-radius: 12px; display: flex; align-items: center">{{t.btn2}}</a>
+      </div>
+    </div>
+
+    <!-- Animated product dashboard -->
+    <div style="position: relative; max-width: 1060px; margin: 64px auto 0">
+      <!-- floating notification cards -->
+      <div class="float-card a-pop d9" style="position: absolute; z-index: 3; left: -36px; top: 90px">
+        <div class="bob" style="background: #FFFFFF; border: 1px solid #EEE7EC; border-radius: 14px; padding: 12px 16px; display: flex; align-items: center; gap: 12px; box-shadow: 0 16px 40px rgba(38,42,54,.14)">
+          <span style="width: 34px; height: 34px; border-radius: 10px; background: #E9F7EF; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E8A4C" stroke-width="2.6"><path d="M5 12l5 5 9-10"/></svg></span>
+          <span style="font-size: 13px; line-height: 1.3"><strong style="display: block">Bank reconciled</strong><span style="color: #5F6470">This morning, automatically</span></span>
+        </div>
+      </div>
+      <div class="float-card a-pop d10" style="position: absolute; z-index: 3; right: -30px; top: 210px">
+        <div class="bob2" style="background: #FFFFFF; border: 1px solid #EEE7EC; border-radius: 14px; padding: 12px 16px; display: flex; align-items: center; gap: 12px; box-shadow: 0 16px 40px rgba(38,42,54,.14)">
+          <span style="width: 34px; height: 34px; border-radius: 10px; background: #FEEDE6; display: flex; align-items: center; justify-content: center"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C4501F" stroke-width="2.2"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6"/></svg></span>
+          <span style="font-size: 13px; line-height: 1.3"><strong style="display: block">VAT return filed</strong><span style="color: #5F6470">Belgium · on time</span></span>
+        </div>
+      </div>
+
+      <div role="img" aria-label="Animated illustration of an Odoo accounting dashboard" class="dash" style="position: relative; z-index: 2; background: #FFFFFF; border: 1px solid #EEE7EC; border-bottom: 0; border-radius: 18px 18px 0 0; box-shadow: 0 -10px 60px rgba(160,80,143,.16); overflow: hidden">
+        <div style="height: 46px; background: #A0508F; display: flex; align-items: center; gap: 22px; padding: 0 20px; color: #FFFFFF; font-size: 13px">
+          <span style="display: flex; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.5)"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.5)"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: #F97243"></span></span>
+          <span style="font-weight: 700">Accounting</span><span style="opacity: .85">Dashboard</span><span style="opacity: .85">Customers</span><span style="opacity: .85">Vendors</span><span style="opacity: .85">Reporting</span>
+        </div>
+        <div style="padding: 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; background: #FBF8FA">
+          <div class="a-rise d6" style="background: #FFFFFF; border: 1px solid #EEE7EC; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+            <div style="display: flex; justify-content: space-between; align-items: center"><span style="font-weight: 600; font-size: 14px">Revenue by month</span><span style="font-size: 12px; color: #1E8A4C; font-weight: 600">trending up</span></div>
+            <div aria-hidden="true" style="display: flex; align-items: flex-end; gap: 8px; height: 110px">
+              <div class="bar d6" style="flex: 1; height: 38%; background: #E9D3E4; border-radius: 4px"></div>
+              <div class="bar d7" style="flex: 1; height: 52%; background: #E9D3E4; border-radius: 4px"></div>
+              <div class="bar d8" style="flex: 1; height: 47%; background: #E9D3E4; border-radius: 4px"></div>
+              <div class="bar d9" style="flex: 1; height: 66%; background: #CFA6C8; border-radius: 4px"></div>
+              <div class="bar d10" style="flex: 1; height: 92%; background: #A0508F; border-radius: 4px"></div>
+            </div>
+          </div>
+          <div class="a-rise d7" style="background: #FFFFFF; border: 1px solid #EEE7EC; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+            <div style="display: flex; justify-content: space-between; align-items: center"><span style="font-weight: 600; font-size: 14px">Cash position</span><span style="font-size: 12px; color: #5F6470">live</span></div>
+            <svg aria-hidden="true" viewBox="0 0 240 110" style="width: 100%; height: 110px">
+              <path d="M0 95 L40 82 L80 88 L120 58 L160 64 L200 34 L240 22" fill="none" stroke="#F97243" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="line-draw"/>
+              <circle cx="240" cy="22" r="5" fill="#F97243" class="a-pop d10"/>
+            </svg>
+          </div>
+          <div class="a-rise d8" style="background: #FFFFFF; border: 1px solid #EEE7EC; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+            <span style="font-weight: 600; font-size: 14px">Tax returns</span>
+            <div style="display: flex; flex-direction: column; gap: 10px; font-size: 13px; color: #4A4F59">
+              <div style="display: flex; justify-content: space-between; align-items: center"><span>VAT · Belgium</span><span class="a-pop d8" style="background: #E9F7EF; color: #1E6E3F; font-weight: 600; padding: 2px 10px; border-radius: 999px">Filed</span></div>
+              <div style="display: flex; justify-content: space-between; align-items: center"><span>VAT · France</span><span class="a-pop d9" style="background: #E9F7EF; color: #1E6E3F; font-weight: 600; padding: 2px 10px; border-radius: 999px">Filed</span></div>
+              <div style="display: flex; justify-content: space-between; align-items: center"><span>OSS · EU</span><span class="a-pop d10" style="background: #FEEDE6; color: #9A3D14; font-weight: 600; padding: 2px 10px; border-radius: 999px">In review</span></div>
+              <div style="display: flex; justify-content: space-between; align-items: center"><span>Corporate tax · LU</span><span class="a-pop d10" style="background: #F4E9F1; color: #6E2F62; font-weight: 600; padding: 2px 10px; border-radius: 999px">Scheduled</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE: client logos + countries -->
+  <section aria-label="Clients and countries" style="background: #262A36; color: #FFFFFF; padding: 22px 0; overflow: hidden">
+    <div class="marquee" style="display: flex; width: max-content; gap: 40px; align-items: center; font-size: 15px; font-weight: 600; white-space: nowrap">
+      <span>Belgium</span><span style="color: #F97243">●</span><span>From DATEV</span><span style="color: #F97243">●</span><span>France</span><span style="color: #F97243">●</span><span>From Exact</span><span style="color: #F97243">●</span><span>Germany</span><span style="color: #F97243">●</span><span>From QuickBooks</span><span style="color: #F97243">●</span><span>Italy</span><span style="color: #F97243">●</span><span>From NetSuite</span><span style="color: #F97243">●</span><span>Luxembourg</span><span style="color: #F97243">●</span><span>Bookkeeping</span><span style="color: #F97243">●</span><span>Netherlands</span><span style="color: #F97243">●</span><span>Payroll</span><span style="color: #F97243">●</span><span>UAE</span><span style="color: #F97243">●</span><span>Tax returns</span><span style="color: #F97243">●</span><span>United Kingdom</span><span style="color: #F97243">●</span><span>Fractional CFO</span><span style="color: #F97243">●</span><span>United States</span><span style="color: #F97243">●</span><span>Consolidation</span><span style="color: #F97243">●</span><span>Armenia</span><span style="color: #F97243">●</span><span>Odoo Gold Partner</span><span style="color: #F97243">●</span>
+      <span aria-hidden="true">Belgium</span><span style="color: #F97243">●</span><span aria-hidden="true">From DATEV</span><span style="color: #F97243">●</span><span aria-hidden="true">France</span><span style="color: #F97243">●</span><span aria-hidden="true">From Exact</span><span style="color: #F97243">●</span><span aria-hidden="true">Germany</span><span style="color: #F97243">●</span><span aria-hidden="true">From QuickBooks</span><span style="color: #F97243">●</span><span aria-hidden="true">Italy</span><span style="color: #F97243">●</span><span aria-hidden="true">From NetSuite</span><span style="color: #F97243">●</span><span aria-hidden="true">Luxembourg</span><span style="color: #F97243">●</span><span aria-hidden="true">Bookkeeping</span><span style="color: #F97243">●</span><span aria-hidden="true">Netherlands</span><span style="color: #F97243">●</span><span aria-hidden="true">Payroll</span><span style="color: #F97243">●</span><span aria-hidden="true">UAE</span><span style="color: #F97243">●</span><span aria-hidden="true">Tax returns</span><span style="color: #F97243">●</span><span aria-hidden="true">United Kingdom</span><span style="color: #F97243">●</span><span aria-hidden="true">Fractional CFO</span><span style="color: #F97243">●</span><span aria-hidden="true">United States</span><span style="color: #F97243">●</span><span aria-hidden="true">Consolidation</span><span style="color: #F97243">●</span><span aria-hidden="true">Armenia</span><span style="color: #F97243">●</span><span aria-hidden="true">Odoo Gold Partner</span><span style="color: #F97243">●</span>
+    </div>
+  </section>
+
+  <!-- STATS with counters -->
+  <section style="padding: 72px 32px 40px; background: #FFFFFF">
+    <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px">
+      <div class="stat reveal" style="--c: #A0508F; --bg: #F7EEF5">
+        <div class="stat-num"><span class="count750"></span><span style="color: #F97243">+</span></div>
+        <div class="stat-lbl">migrations to Odoo since 2017</div>
+      </div>
+      <div class="stat reveal" style="--c: #0E9F8E; --bg: #E6F7F4">
+        <div class="stat-num"><span class="count10"></span></div>
+        <div class="stat-lbl">countries, one network, one point of contact</div>
+      </div>
+      <div class="stat reveal" style="--c: #2F6FE4; --bg: #EAF1FE">
+        <div class="stat-num"><span class="count12"></span><span style="color: #F97243">+</span></div>
+        <div class="stat-lbl">chartered accountants working in Odoo</div>
+      </div>
+      <div class="stat reveal" style="--c: #C98A00; --bg: #FDF5E1">
+        <div class="stat-num">Gold</div>
+        <div class="stat-lbl">Odoo Partner since 2022</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ODOO APP ECOSYSTEM -->
+  <section id="apps" style="padding: 72px 32px 96px; background: #FFFFFF; position: relative; overflow: hidden">
+    <div aria-hidden="true" class="dot-grid"></div>
+    <div style="position: relative; max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px">
+      <div class="reveal" style="text-align: center; max-width: 760px; margin: 0 auto">
+        <p class="eyebrow">THE ODOO APPS WE RUN YOUR FINANCE ON</p>
+        <h2 class="sec-h2" style="margin: 0 0 14px; font-size: 46px; line-height: 1.1; font-weight: 800; letter-spacing: -1.4px">Every app feeds <span class="shimmer-text">your accounts</span><span style="color: #F97243">.</span></h2>
+        <p style="margin: 0; font-size: 18px; color: #4A4F59">Hover or tap an app to see what our accountants do with it. Everything lands in one Odoo database, in real time.</p>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: stretch">
+        <div class="app-grid reveal" style="flex: 1 1 520px; min-width: 0">
+          <sc-for list="{{apps}}" as="a" hint-placeholder-count="16">
+            <button type="button" class="app-tile {{a.cls}}" onClick="{{a.pick}}" onMouseEnter="{{a.pick}}" style="--glow: {{a.color}}" aria-pressed="{{a.pressed}}">
+              <span class="app-ico"><img src="{{a.icon}}" alt=""></span>
+              <span class="app-name">{{a.name}}</span>
+            </button>
+          </sc-for>
+        </div>
+        <div class="app-panel reveal" style="flex: 1 1 380px; min-width: 0; --glow: {{app.color}}">
+          <div class="app-panel-bg" aria-hidden="true"></div>
+          <div style="position: relative; display: flex; flex-direction: column; gap: 18px; height: 100%">
+            <div style="display: flex; align-items: center; gap: 16px">
+              <span class="app-ico big"><img src="{{app.icon}}" alt=""></span>
+              <div>
+                <p style="margin: 0; font-size: 13px; font-weight: 700; letter-spacing: 1px; color: #5F6470">ODOO APP</p>
+                <h3 style="margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -.6px">{{app.name}}</h3>
+              </div>
+            </div>
+            <p style="margin: 0; font-size: 18px; line-height: 1.5; color: #262A36; font-weight: 600">{{app.title}}</p>
+            <ul class="app-points">
+              <sc-for list="{{app.points}}" as="p" hint-placeholder-count="3">
+                <li><span class="tick" aria-hidden="true"></span>{{p.text}}</li>
+              </sc-for>
+            </ul>
+            <div style="margin-top: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+              <span class="app-flow-tag">Posts to</span>
+              <span class="app-chip"><img src="assets/odoo-apps/accounting.png" alt="">Accounting</span>
+              <span class="app-chip"><img src="assets/odoo-apps/dashboards.png" alt="">Dashboards</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINANCE FLOW: data moving between apps -->
+  <section style="padding: 80px 32px; background: linear-gradient(180deg, #F4FBFA 0%, #FFFFFF 100%)">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px">
+      <div class="reveal" style="max-width: 720px">
+        <p class="eyebrow" style="color: #0B7F72">REAL-TIME, END TO END</p>
+        <h2 class="sec-h2" style="margin: 0 0 12px; font-size: 42px; line-height: 1.1; font-weight: 800; letter-spacing: -1.2px">From first quote to board report, <span style="color: #0E9F8E">without re-typing a number</span>.</h2>
+        <p style="margin: 0; font-size: 18px; color: #4A4F59">Each step is an Odoo app. We set up the rules once; the data flows on its own every day.</p>
+      </div>
+      <div class="flow reveal">
+        <div class="flow-track" aria-hidden="true">
+          <span class="packet" style="animation-delay: 0s; background: #A0508F"></span>
+          <span class="packet" style="animation-delay: 1.2s; background: #F97243"></span>
+          <span class="packet" style="animation-delay: 2.4s; background: #0E9F8E"></span>
+          <span class="packet" style="animation-delay: 3.6s; background: #2F6FE4"></span>
+        </div>
+        <div class="flow-step"><span class="flow-ico"><img src="assets/odoo-apps/crm.png" alt=""></span><strong>CRM</strong><span>Deal won</span></div>
+        <div class="flow-step"><span class="flow-ico"><img src="assets/odoo-apps/sales.png" alt=""></span><strong>Sales</strong><span>Invoice with the right VAT</span></div>
+        <div class="flow-step"><span class="flow-ico"><img src="assets/odoo-apps/subscriptions.png" alt=""></span><strong>Subscriptions</strong><span>Revenue recognised monthly</span></div>
+        <div class="flow-step"><span class="flow-ico"><img src="assets/odoo-apps/accounting.png" alt=""></span><strong>Accounting</strong><span>Bank matched, books closed</span></div>
+        <div class="flow-step"><span class="flow-ico"><img src="assets/odoo-apps/dashboards.png" alt=""></span><strong>Dashboards</strong><span>P&amp;L, EBITDA, margin, KPIs</span></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- SERVICES: tabs, real service list -->
+  <section id="services" style="padding: 96px 32px; background: #FBF8FA">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px">
+      <div class="reveal" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px">
+        <div style="max-width: 680px">
+          <p class="eyebrow">SERVICES</p>
+          <h2 class="sec-h2" style="margin: 0 0 12px; font-size: 46px; line-height: 1.1; font-weight: 800; letter-spacing: -1.4px">All your finance, <span class="shimmer-text">in one place</span><span style="color: #F97243">.</span></h2>
+          <p style="margin: 0; font-size: 18px; color: #4A4F59">Hand us one task or the whole finance function. Everything happens in your own Odoo.</p>
+        </div>
+        <div class="seg" role="tablist" aria-label="Service type">
+          <sc-for list="{{svcTabs}}" as="tb" hint-placeholder-count="3">
+            <button type="button" role="tab" class="seg-btn {{tb.cls}}" aria-selected="{{tb.selected}}" onClick="{{tb.pick}}">{{tb.label}}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div class="svc-grid">
+        <sc-for list="{{services}}" as="s" hint-placeholder-count="6">
+          <article class="svc" style="--c: {{s.color}}; --bg: {{s.bg}}">
+            <div class="svc-top">
+              <span class="svc-ico"><img src="{{s.icon}}" alt=""></span>
+              <span class="svc-kind">{{s.kind}}</span>
+            </div>
+            <h3>{{s.name}}</h3>
+            <p>{{s.desc}}</p>
+            <div class="svc-more">
+              <sc-for list="{{s.tags}}" as="g" hint-placeholder-count="3"><span class="svc-tag">{{g.t}}</span></sc-for>
+            </div>
+            <a href="#diagnostic" class="svc-link">Learn more <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </article>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA: charts -->
+  <section id="data" style="padding: 96px 32px; background: #14161C; color: #FFFFFF; position: relative; overflow: hidden">
+    <div aria-hidden="true" class="blob1" style="position: absolute; width: 480px; height: 480px; right: -140px; top: -120px; border-radius: 50%; background: #2F6FE4; opacity: .18; filter: blur(100px)"></div>
+    <div aria-hidden="true" class="blob2" style="position: absolute; width: 420px; height: 420px; left: -120px; bottom: -100px; border-radius: 50%; background: #A0508F; opacity: .25; filter: blur(100px)"></div>
+    <div style="position: relative; max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px">
+      <div class="reveal" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px">
+        <div style="max-width: 700px">
+          <p class="eyebrow" style="color: #F9A07E">750+ MIGRATIONS, IN NUMBERS</p>
+          <h2 class="sec-h2" style="margin: 0; font-size: 44px; line-height: 1.1; font-weight: 800; letter-spacing: -1.2px">Nearly a decade of moving finance teams to Odoo.</h2>
+        </div>
+        <span class="sample-badge">Sample figures for the layout — replace with doo.FINANCE data</span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px">
+        <!-- bar chart -->
+        <div class="panel panel-wide reveal" style="min-width: 0">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap">
+            <h3 class="panel-h">Migrations completed per year</h3>
+            <span style="font-size: 14px; color: #B9BCC6">Hover a bar · total <strong style="color: #FFFFFF">{{barTotal}}</strong></span>
+          </div>
+          <div class="bars" role="img" aria-label="Bar chart of migrations per year, 2017 to 2026">
+            <sc-for list="{{bars}}" as="b" hint-placeholder-count="10">
+              <div class="bar-col">
+                <span class="bar-val">{{b.v}}</span>
+                <span class="bar-fill" style="height: {{b.h}}; animation-delay: {{b.d}}; background: {{b.bg}}"></span>
+                <span class="bar-yr">{{b.y}}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <!-- donut -->
+        <div class="panel reveal" style="min-width: 0">
+          <h3 class="panel-h">Where clients migrate from</h3>
+          <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap">
+            <svg viewBox="0 0 120 120" width="170" height="170" role="img" aria-label="Donut chart of source systems" class="donut">
+              <circle cx="60" cy="60" r="44" fill="none" stroke="#2A2D36" stroke-width="16"/>
+              <sc-for list="{{donut}}" as="d" hint-placeholder-count="5">
+                <circle cx="60" cy="60" r="44" fill="none" stroke="{{d.color}}" stroke-width="16" stroke-dasharray="{{d.dash}}" stroke-dashoffset="{{d.offset}}" transform="rotate(-90 60 60)" class="donut-seg"/>
+              </sc-for>
+              <text x="60" y="58" text-anchor="middle" fill="#FFFFFF" font-size="18" font-weight="800">750+</text>
+              <text x="60" y="74" text-anchor="middle" fill="#B9BCC6" font-size="8">migrations</text>
+            </svg>
+            <ul class="legend">
+              <sc-for list="{{donut}}" as="d" hint-placeholder-count="5">
+                <li><span style="background: {{d.color}}"></span>{{d.label}}<strong>{{d.pct}}</strong></li>
+              </sc-for>
+            </ul>
+          </div>
+        </div>
+        <!-- KPI tiles -->
+        <div class="panel reveal" style="min-width: 0; display: flex; flex-direction: column; gap: 14px">
+          <h3 class="panel-h">Typical result after go-live</h3>
+          <div class="kpi"><span>Month-end close</span><strong>15 → 5 days</strong><span class="kpi-bar"><span style="width: 33%"></span></span></div>
+          <div class="kpi"><span>Supplier invoices keyed by hand</span><strong>−80%</strong><span class="kpi-bar"><span style="width: 20%; background: #0E9F8E"></span></span></div>
+          <div class="kpi"><span>Bank lines auto-matched</span><strong>90%</strong><span class="kpi-bar"><span style="width: 90%; background: #F97243"></span></span></div>
+        </div>
+        <!-- countries split -->
+        <div class="panel reveal" style="min-width: 0">
+          <h3 class="panel-h">Entities we keep books for, by country</h3>
+          <div style="display: flex; flex-direction: column; gap: 10px">
+            <sc-for list="{{byCountry}}" as="c" hint-placeholder-count="6">
+              <div class="hbar"><span class="flag flag-{{c.code}}" aria-hidden="true"></span><span class="hbar-lbl">{{c.name}}</span><span class="hbar-track"><span style="width: {{c.w}}"></span></span><strong>{{c.v}}</strong></div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MIGRATION ESTIMATOR -->
+  <section id="estimator" style="padding: 96px 32px; background: linear-gradient(135deg, #FFF6EF 0%, #FBF1F8 55%, #EEF4FF 100%)">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; align-items: stretch">
+      <div class="reveal" style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+        <div>
+          <p class="eyebrow">MIGRATION ESTIMATOR</p>
+          <h2 class="sec-h2" style="margin: 0 0 12px; font-size: 44px; line-height: 1.1; font-weight: 800; letter-spacing: -1.2px">How long would your move to Odoo take?</h2>
+          <p style="margin: 0; font-size: 17px; color: #4A4F59">Pick your current system and size. We move your history with it — nothing is left behind.</p>
+        </div>
+        <div>
+          <p class="field-lbl">Current system</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <sc-for list="{{srcs}}" as="x" hint-placeholder-count="6">
+              <button type="button" class="src-chip {{x.cls}}" onClick="{{x.pick}}" aria-pressed="{{x.pressed}}">{{x.label}}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div class="stepper-row">
+          <div class="stepper">
+            <p class="field-lbl">Legal entities</p>
+            <div class="stepper-ctl"><button type="button" onClick="{{entDown}}" aria-label="Fewer entities">−</button><strong>{{est.entities}}</strong><button type="button" onClick="{{entUp}}" aria-label="More entities">+</button></div>
+          </div>
+          <div class="stepper">
+            <p class="field-lbl">Countries</p>
+            <div class="stepper-ctl"><button type="button" onClick="{{ctyDown}}" aria-label="Fewer countries">−</button><strong>{{est.countries}}</strong><button type="button" onClick="{{ctyUp}}" aria-label="More countries">+</button></div>
+          </div>
+          <div class="stepper">
+            <p class="field-lbl">Years of history</p>
+            <div class="stepper-ctl"><button type="button" onClick="{{yrsDown}}" aria-label="Fewer years">−</button><strong>{{est.years}}</strong><button type="button" onClick="{{yrsUp}}" aria-label="More years">+</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="est-card reveal" style="flex: 1 1 440px; min-width: 0">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px">
+          <div>
+            <p style="margin: 0; font-size: 14px; color: #5F6470; font-weight: 600">Indicative timeline</p>
+            <p class="est-weeks"><span>{{est.weeks}}</span> weeks</p>
+          </div>
+          <div class="est-from"><span>{{est.src}}</span><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A0508F" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg><img src="assets/odoo-apps/accounting.png" alt="Odoo Accounting"></div>
+        </div>
+        <div class="est-phases" aria-label="Phases">
+          <sc-for list="{{est.phases}}" as="ph" hint-placeholder-count="4">
+            <div class="est-phase" style="flex: {{ph.w}}; background: {{ph.color}}"><span>{{ph.label}}</span><strong>{{ph.wk}}</strong></div>
+          </sc-for>
+        </div>
+        <ul class="est-list">
+          <sc-for list="{{est.notes}}" as="n" hint-placeholder-count="3"><li><span class="tick" aria-hidden="true"></span>{{n.t}}</li></sc-for>
+        </ul>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto">
+          <span style="font-size: 12.5px; color: #5F6470">Indicative only. Your free diagnostic gives a fixed plan.</span>
+          <a href="#diagnostic" class="shine btn-p" style="background: #A0508F; color: #FFFFFF; text-decoration: none; font-weight: 700; height: 50px; padding: 0 22px; border-radius: 12px; display: flex; align-items: center">Get my plan</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- GERMAN ACCOUNTING ECOSYSTEM -->
+  <section class="dfde" id="german-ecosystem" aria-labelledby="dfde-title">
+  <div class="dfde-grid" aria-hidden="true"></div>
+  <div class="dfde-light" aria-hidden="true" style="width: 520px; height: 520px; left: -160px; top: -140px; background: #C9A8C2; opacity: .45"></div>
+  <div class="dfde-light" aria-hidden="true" style="width: 420px; height: 420px; right: -120px; top: 260px; background: #714B67; opacity: .18; animation-delay: -6s"></div>
+  <!-- minimalist Berlin skyline: TV tower, Brandenburg Gate, blocks -->
+  <svg aria-hidden="true" viewBox="0 0 600 160" style="position: absolute; right: 0; top: 150px; width: 560px; height: auto; opacity: .16; pointer-events: none">
+    <g fill="#714B67">
+      <rect x="20" y="110" width="40" height="50"/><rect x="66" y="92" width="30" height="68"/><rect x="102" y="118" width="46" height="42"/>
+      <rect x="196" y="6" width="5" height="60"/><circle cx="198.5" cy="70" r="12"/><rect x="194" y="80" width="9" height="80"/>
+      <rect x="230" y="104" width="34" height="56"/>
+      <rect x="290" y="96" width="130" height="10"/><rect x="286" y="90" width="138" height="7"/><rect x="340" y="76" width="30" height="14"/>
+      <rect x="294" y="106" width="8" height="54"/><rect x="314" y="106" width="8" height="54"/><rect x="334" y="106" width="8" height="54"/><rect x="368" y="106" width="8" height="54"/><rect x="388" y="106" width="8" height="54"/><rect x="408" y="106" width="8" height="54"/>
+      <rect x="446" y="100" width="38" height="60"/><rect x="490" y="84" width="26" height="76"/><rect x="522" y="114" width="56" height="46"/>
+    </g>
+  </svg>
+
+  <div class="dfde-wrap" style="padding-top: 104px; padding-bottom: 96px; display: flex; flex-direction: column; gap: 64px">
+
+    <!-- 1. header -->
+    <div class="dfde-head dfde-in">
+      <div class="dfde-partner" role="img" aria-label="Odoo Gold Partner">
+        <span class="dfde-partner-halo" aria-hidden="true"></span>
+        <img src="assets/odoo-gold-partner.png" alt="Odoo Gold Partner">
+      </div>
+      <span class="dfde-divider" aria-hidden="true"></span>
+      <div style="flex: 1 1 520px; min-width: 0">
+        <div class="dfde-flagbar" aria-hidden="true"><span style="background: #000000"></span><span style="background: #DD0000"></span><span style="background: #FFCE00"></span></div>
+        <p class="dfde-eyebrow">doo.FINANCE · Germany</p>
+        <h2 class="dfde-h2" id="dfde-title">German Accounting <em>Ecosystem</em></h2>
+        <p class="dfde-sub">Connecting Odoo ERP with Germany's leading accounting, tax and financial management platforms.</p>
+        <p class="dfde-desc">Seamlessly connecting Odoo with the German financial ecosystem through DATEV-compatible exports, structured financial data exchange, customised integrations and German fiscal localization.</p>
+        <div class="dfde-pos">
+          <span>doo.FINANCE</span><span>Odoo ERP</span><span>German Fiscal Localization</span><span>Accounting Integrations</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. platform cards -->
+    <div style="display: flex; flex-direction: column; gap: 22px">
+      <div class="dfde-reveal" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px">
+        <div>
+          <p class="dfde-eyebrow">Platforms we connect Odoo with</p>
+          <h3 style="margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -.6px">Nine platforms, each with an honest integration route</h3>
+        </div>
+        <div class="dfde-key">
+          <span><span class="dfde-badge b-native">Native</span></span>
+          <span><span class="dfde-badge b-file">File-based</span></span>
+          <span><span class="dfde-badge b-api">API</span></span>
+          <span><span class="dfde-badge b-feas">Assessment</span></span>
+        </div>
+      </div>
+      <div class="dfde-cards">
+        <sc-for list="{{dCards}}" as="c" hint-placeholder-count="9">
+          <button type="button" class="dfde-card {{c.cls}}" onClick="{{c.pick}}" style="animation-delay: {{c.delay}}" aria-pressed="{{c.pressed}}" aria-label="{{c.aria}}">
+            <span class="dfde-logo">
+              <sc-if value="{{c.hasLogo}}" hint-placeholder-val="{{ false }}"><img src="{{c.logo}}" alt=""></sc-if>
+              <sc-if value="{{c.noLogo}}" hint-placeholder-val="{{ true }}"><span class="dfde-wordmark"><strong>{{c.name}}</strong><span>{{c.vendor}}</span></span></sc-if>
+            </span>
+            <span class="dfde-cat">{{c.cat}}</span>
+            <span class="dfde-badges"><sc-for list="{{c.badges}}" as="b" hint-placeholder-count="2"><span class="dfde-badge {{b.cls}}">{{b.label}}</span></sc-for></span>
+            <span class="dfde-card-desc">{{c.desc}}</span>
+            <span class="dfde-hint">Hover for details · click to trace in the diagram</span>
+            <span class="dfde-line" aria-hidden="true"></span>
+          </button>
+        </sc-for>
+      </div>
+      <p style="margin: 0; font-size: 13px; color: #6A6371">Badges describe the documented exchange route, not a certified or pre-built connector. AKTE (Wolters Kluwer) uses the same DATEV-format import as ADDISON and is covered by that card.</p>
+    </div>
+
+    <!-- 3. animated diagram -->
+    <div class="dfde-diagram dfde-reveal">
+      <div style="position: relative; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 18px">
+        <div>
+          <p class="dfde-eyebrow" style="color: #E3C9DD">How data moves</p>
+          <h3 style="margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -.6px">Odoo at the centre of your German finance stack</h3>
+        </div>
+        <span style="font-size: 13px; color: #E6DAE8">Click a platform or a data flow</span>
+      </div>
+      <div class="dfde-flows" role="group" aria-label="Filter by data flow">
+        <sc-for list="{{dFlows}}" as="f" hint-placeholder-count="7">
+          <button type="button" class="dfde-flow {{f.cls}}" onClick="{{f.pick}}" aria-pressed="{{f.pressed}}">{{f.label}}</button>
+        </sc-for>
+      </div>
+      <div class="dfde-stage">
+        <div class="dfde-links" aria-hidden="true">
+          <sc-for list="{{dLinks}}" as="l" hint-placeholder-count="9">
+            <span class="dfde-ln {{l.cls}}" style="width: {{l.w}}; transform: rotate({{l.deg}})">
+              <span class="dfde-pt {{l.ptcls}}" style="background: {{l.color}}; animation-duration: {{l.dur}}"></span>
+              <span class="dfde-pt back {{l.backcls}} {{l.ptcls}}" style="animation-duration: {{l.dur}}"></span>
+            </span>
+          </sc-for>
+        </div>
+        <div class="dfde-core" role="img" aria-label="Odoo ERP">
+          <img src="assets/odoo-gold-partner.png" alt="">
+          <span>ODOO ERP</span>
+        </div>
+        <sc-for list="{{dNodes}}" as="n" hint-placeholder-count="9">
+          <button type="button" class="dfde-node {{n.cls}}" style="left: {{n.left}}; top: {{n.top}}" onClick="{{n.pick}}" aria-pressed="{{n.pressed}}"><i class="{{n.dot}}" aria-hidden="true"></i>{{n.name}}</button>
+        </sc-for>
+      </div>
+      <div class="dfde-info" aria-live="polite">
+        <div>
+          <p class="dfde-eyebrow" style="color: #E3C9DD">{{dSel.kind}}</p>
+          <h3>Odoo ⇄ {{dSel.name}}</h3>
+          <p>{{dSel.method}}</p>
+          <sc-if value="{{dSel.isFeas}}" hint-placeholder-val="{{ false }}"><span class="dfde-warn">Custom Integration / Subject to Technical Validation</span></sc-if>
+        </div>
+        <div>
+          <p class="dfde-eyebrow" style="color: #E3C9DD">Typical data exchanged</p>
+          <div class="dfde-info-flows"><sc-for list="{{dSel.flows}}" as="x" hint-placeholder-count="4"><span>{{x.t}}</span></sc-for></div>
+        </div>
+      </div>
+      <div class="dfde-legend">
+        <span><i class="dot-native"></i>Native Odoo export</span>
+        <span><i class="dot-file"></i>File-based exchange (DATEV format)</span>
+        <span><i class="dot-api"></i>Custom API integration</span>
+        <span><i class="dot-feas"></i>Custom integration · subject to technical validation</span>
+      </div>
+    </div>
+
+    <!-- 4. German fiscal localization in Odoo -->
+    <div style="display: flex; flex-direction: column; gap: 24px">
+      <div class="dfde-reveal" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px">
+        <div style="max-width: 720px">
+          <div class="dfde-flagbar" aria-hidden="true"><span style="background: #000000"></span><span style="background: #DD0000"></span><span style="background: #FFCE00"></span></div>
+          <h2 class="dfde-h2" style="font-size: 40px">German Fiscal Localization in Odoo</h2>
+          <p class="dfde-sub" style="margin: 0">From German accounting standards to tax compliance and financial automation.</p>
+        </div>
+        <div class="dfde-key">
+          <span class="t-native">● Standard in Odoo</span>
+          <span class="t-config">● Configuration / version-dependent</span>
+          <span class="t-custom">● Custom work</span>
+          <span class="t-ext">● External software</span>
+        </div>
+      </div>
+      <div class="dfde-loc">
+        <article class="dfde-loc-card dfde-reveal">
+          <div class="dfde-loc-ico"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/></svg></div>
+          <h3>Accounting Configuration</h3>
+          <ul>
+            <li>SKR03 and SKR04 Chart of Accounts<small class="t-native">Standard in Odoo</small></li>
+            <li>German chart of accounts configuration<small class="t-config">Configuration</small></li>
+            <li>Financial journals<small class="t-native">Standard in Odoo</small></li>
+            <li>Accounts receivable and payable<small class="t-native">Standard in Odoo</small></li>
+            <li>Bank reconciliation<small class="t-native">Standard in Odoo</small></li>
+            <li>Automated accounting entries<small class="t-config">Configuration</small></li>
+          </ul>
+        </article>
+        <article class="dfde-loc-card dfde-reveal">
+          <div class="dfde-loc-ico"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></div>
+          <h3>German Tax Compliance</h3>
+          <ul>
+            <li>German VAT (Umsatzsteuer)<small class="t-native">Standard in Odoo</small></li>
+            <li>Vorsteuer and Umsatzsteuer<small class="t-native">Standard in Odoo</small></li>
+            <li>VAT reporting (UStVA)<small class="t-config">Odoo Enterprise reports</small></li>
+            <li>ELSTER-related workflows<small class="t-config">Where supported by your Odoo version</small></li>
+            <li>GoBD-oriented processes and audit trail<small class="t-native">Audit trail on by default</small></li>
+            <li>German invoice requirements<small class="t-config">Configuration</small></li>
+            <li>E-Rechnung: XRechnung and ZUGFeRD<small class="t-config">Subject to Odoo version and configuration</small></li>
+          </ul>
+        </article>
+        <article class="dfde-loc-card dfde-reveal">
+          <div class="dfde-loc-ico"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h11l-3-3M20 17H9l3 3"/></svg></div>
+          <h3>DATEV Integration</h3>
+          <ul>
+            <li>DATEV export (ATCH documents + DATA)<small class="t-native">Standard in Odoo · German localization</small></li>
+            <li>Buchungsstapel (EXTF)<small class="t-native">Included in DATEV DATA export</small></li>
+            <li>Debitoren and Kreditoren data<small class="t-native">Partner account files in the export</small></li>
+            <li>SKR03 / SKR04 account mapping<small class="t-config">Configuration</small></li>
+            <li>Data exchange with your Steuerberater<small class="t-native">Imported into DATEV Rechnungswesen</small></li>
+            <li>DATEV import workflows into Odoo<small class="t-custom">Custom work</small></li>
+            <li>DATEV-compatible reporting workflows<small class="t-config">Configuration</small></li>
+          </ul>
+        </article>
+        <article class="dfde-loc-card dfde-reveal">
+          <div class="dfde-loc-ico"><svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 11h5M18.5 8.5v5"/></svg></div>
+          <h3>Payroll and HR</h3>
+          <ul>
+            <li>German payroll calculation<small class="t-ext">Usually in external payroll software, e.g. DATEV LODAS / Lohn und Gehalt</small></li>
+            <li>Lohnbuchhaltung workflows<small class="t-ext">Run by your payroll provider or Steuerberater</small></li>
+            <li>Employee accounting data<small class="t-native">Employees app in Odoo</small></li>
+            <li>Payroll-related journal entries in Odoo<small class="t-custom">Imported from the payroll system · custom mapping</small></li>
+            <li>Payroll data exchange<small class="t-custom">File-based, scoped per project</small></li>
+          </ul>
+          <p style="margin: 14px 0 0; font-size: 12.5px; color: #6A6371">We do not claim that Odoo's standard payroll covers all German payroll requirements.</p>
+        </article>
+      </div>
+    </div>
+
+    <!-- 5. CTA -->
+    <div class="dfde-cta dfde-reveal">
+      <div style="flex: 1 1 520px; min-width: 0">
+        <div class="dfde-flagbar" aria-hidden="true"><span style="background: #000000"></span><span style="background: #DD0000"></span><span style="background: #FFCE00"></span></div>
+        <h2>Need to Connect Odoo with Your German Accounting Software?</h2>
+        <p>Whether you work with DATEV, ADDISON, AGENDA or another financial platform, doo.FINANCE can help evaluate your requirements and design an appropriate integration solution.</p>
+        <a href="#contact" class="dfde-btn">Discuss Your Integration Requirements <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="dfde-contact">
+        <img src="assets/team/thomas-lenz.jpg" alt="Thomas Lenz">
+        <div style="display: flex; flex-direction: column; gap: 3px">
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: 1px; color: #E3C9DD">YOUR CONTACT IN GERMANY</span>
+          <strong style="font-size: 17px">Thomas Lenz</strong>
+          <span style="font-size: 13px; color: #F1EAF3">Country Manager · Cologne</span>
+          <a href="tel:+4916097924207">+49 160 97924207</a>
+          <a href="mailto:tlenz@doo.finance">tlenz@doo.finance</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  <!-- HOW IT WORKS: line draws as you scroll -->
+  <section id="how" style="padding: 96px 32px; background: #FFFFFF">
+    <div style="max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 64px; align-items: center">
+      <div class="reveal" style="flex: 1 1 380px; min-width: 0">
+        <h2 class="sec-h2" style="margin: 0 0 16px; font-size: 46px; line-height: 1.1; font-weight: 800; letter-spacing: -1.4px">Three steps to a finance team <span class="shimmer-text">in Odoo</span><span style="color: #F97243">.</span></h2>
+        <p style="margin: 0 0 28px; font-size: 18px; color: #4A4F59">Start with a free diagnostic. Keep going only if it's useful.</p>
+        <a href="#diagnostic" class="shine btn-p" style="display: inline-flex; background: #A0508F; color: #FFFFFF; text-decoration: none; font-weight: 600; height: 52px; padding: 0 26px; border-radius: 12px; align-items: center">Start with step 1</a>
+      </div>
+      <ol style="flex: 1 1 420px; min-width: 0; position: relative; list-style: none; margin: 0; padding: 0 0 0 4px; display: flex; flex-direction: column; gap: 36px">
+        <span aria-hidden="true" style="position: absolute; left: 27px; top: 28px; bottom: 28px; width: 3px; background: #F1E6EE; border-radius: 3px"></span>
+        <span aria-hidden="true" class="progress-line" style="position: absolute; left: 27px; top: 28px; bottom: 28px; width: 3px; background: linear-gradient(#A0508F, #F97243); border-radius: 3px"></span>
+        <li class="reveal" style="position: relative; display: flex; gap: 20px; align-items: flex-start">
+          <span class="reveal-pop" style="flex: none; width: 50px; height: 50px; border-radius: 50%; background: #A0508F; color: #FFFFFF; font-weight: 800; font-size: 18px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 6px #FFFFFF">1</span>
+          <div><div style="font-weight: 700; font-size: 20px">Free Odoo diagnostic</div><div style="color: #4A4F59">We review your setup and tell you what to fix first.</div></div>
+        </li>
+        <li class="reveal" style="position: relative; display: flex; gap: 20px; align-items: flex-start">
+          <span class="reveal-pop" style="flex: none; width: 50px; height: 50px; border-radius: 50%; background: #B95E86; color: #FFFFFF; font-weight: 800; font-size: 18px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 6px #FFFFFF">2</span>
+          <div><div style="font-weight: 700; font-size: 20px">Migrate and set up</div><div style="color: #4A4F59">Chart of accounts, taxes and reports configured per country.</div></div>
+        </li>
+        <li class="reveal" style="position: relative; display: flex; gap: 20px; align-items: flex-start">
+          <span class="reveal-pop" style="flex: none; width: 50px; height: 50px; border-radius: 50%; background: #F97243; color: #262A36; font-weight: 800; font-size: 18px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 6px #FFFFFF">3</span>
+          <div><div style="font-weight: 700; font-size: 20px">Run your finance</div><div style="color: #4A4F59">Bookkeeping, payroll, tax and reporting, month after month.</div></div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- INDUSTRIES -->
+  <section id="industries" style="padding: 96px 32px; background: #FFFFFF">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px">
+      <div class="reveal" style="max-width: 720px">
+        <p class="eyebrow">INDUSTRIES</p>
+        <h2 class="sec-h2" style="margin: 0 0 12px; font-size: 46px; line-height: 1.1; font-weight: 800; letter-spacing: -1.4px">Set up for how <span class="shimmer-text">your sector</span> really works.</h2>
+        <p style="margin: 0; font-size: 18px; color: #4A4F59">Each industry has its own reports and pitfalls. We have closed the books for all of them.</p>
+      </div>
+      <div class="ind-grid">
+        <sc-for list="{{industries}}" as="i" hint-placeholder-count="5">
+          <article class="ind" style="--c: {{i.color}}; --bg: {{i.bg}}">
+            <div class="ind-head">
+              <span class="ind-num">{{i.n}}</span>
+              <span class="ind-apps"><sc-for list="{{i.icons}}" as="ic" hint-placeholder-count="3"><img src="{{ic.src}}" alt=""></sc-for></span>
+            </div>
+            <h3>{{i.name}}</h3>
+            <p>{{i.desc}}</p>
+            <div class="ind-tags"><sc-for list="{{i.tags}}" as="g" hint-placeholder-count="3"><span>{{g.t}}</span></sc-for></div>
+          </article>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- NETWORK: dotted map with pulsing offices -->
+  <section id="network" style="padding: 96px 32px; background: #262A36; color: #FFFFFF; position: relative; overflow: hidden">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 56px; align-items: center">
+      <div class="reveal" style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+        <h2 class="sec-h2" style="margin: 0; font-size: 46px; line-height: 1.1; font-weight: 800; letter-spacing: -1.4px">A local expert<br>in <span style="color: #F97243">10 countries</span>.</h2>
+        <p style="margin: 0; font-size: 18px; color: #D6D8DE">Chartered accountants who know Odoo and your country's tax rules — one network, one way of working.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px">
+          <span style="border: 1px solid #4A4F5E; border-radius: 999px; padding: 6px 14px; font-size: 14px">Belgium</span>
+          <span style="border: 1px solid #4A4F5E; border-radius: 999px; padding: 6px 14px; font-size: 14px">France</span>
+          <span style="border: 1px solid #4A4F5E; border-radius: 999px; padding: 6px 14px; font-size: 14px">Germany</span>
+          <span style="border: 1px solid #4A4F5E; border-radius: 999px; padding: 6px 14px; font-size: 14px">Italy</span>
+          <span style="border: 1px solid #4A4F5E; border-radius: 999px; padding: 6px 14px; font-size: 14px">Luxembourg</span>
+          <span style="border: 1px solid #4A4F5E; border-radius: 999px; padding: 6px 14px; font-size: 14px">Netherlands</span>
+          <span style="border: 1px solid #4A4F5E; border-radius: 999px; padding: 6px 14px; font-size: 14px">UAE</span>
+          <span style="border: 1px solid #4A4F5E; border-radius: 999px; padding: 6px 14px; font-size: 14px">UK</span>
+          <span style="border: 1px solid #4A4F5E; border-radius: 999px; padding: 6px 14px; font-size: 14px">US</span>
+          <span style="border: 1px solid #4A4F5E; border-radius: 999px; padding: 6px 14px; font-size: 14px">Armenia</span>
+        </div>
+        <a href="#diagnostic" class="btn-p" style="align-self: flex-start; margin-top: 8px; background: #F97243; color: #262A36; text-decoration: none; font-weight: 700; height: 52px; padding: 0 26px; border-radius: 12px; display: flex; align-items: center">Find your country manager</a>
+      </div>
+      <div class="reveal" role="img" aria-label="Map of doo.FINANCE offices" style="flex: 1 1 520px; min-width: 0; position: relative; aspect-ratio: 16 / 10; border-radius: 20px; background-color: #2E3240; background-image: radial-gradient(#4A4F5E 1.4px, transparent 1.6px); background-size: 16px 16px">
+        <!-- US -->
+        <span class="pin" style="position: absolute; left: 20%; top: 38%; width: 12px; height: 12px; border-radius: 50%; background: #F97243"></span>
+        <!-- UK -->
+        <span class="pin" style="position: absolute; left: 46%; top: 28%; width: 12px; height: 12px; border-radius: 50%; background: #CFA6C8"></span>
+        <!-- Benelux / FR / DE cluster -->
+        <span class="pin" style="position: absolute; left: 49%; top: 33%; width: 12px; height: 12px; border-radius: 50%; background: #F97243"></span>
+        <span class="pin" style="position: absolute; left: 51.5%; top: 30.5%; width: 12px; height: 12px; border-radius: 50%; background: #CFA6C8"></span>
+        <span class="pin" style="position: absolute; left: 47.5%; top: 37%; width: 12px; height: 12px; border-radius: 50%; background: #CFA6C8"></span>
+        <span class="pin" style="position: absolute; left: 53%; top: 36%; width: 12px; height: 12px; border-radius: 50%; background: #F97243"></span>
+        <!-- Italy -->
+        <span class="pin" style="position: absolute; left: 53.5%; top: 43%; width: 12px; height: 12px; border-radius: 50%; background: #CFA6C8"></span>
+        <!-- Armenia -->
+        <span class="pin" style="position: absolute; left: 61%; top: 39%; width: 12px; height: 12px; border-radius: 50%; background: #CFA6C8"></span>
+        <!-- UAE -->
+        <span class="pin" style="position: absolute; left: 64%; top: 52%; width: 12px; height: 12px; border-radius: 50%; background: #F97243"></span>
+        <div class="bob" style="position: absolute; left: 6%; bottom: 8%; background: #FFFFFF; color: #262A36; border-radius: 14px; padding: 12px 16px; display: flex; align-items: center; gap: 12px; box-shadow: 0 16px 40px rgba(0,0,0,.3)">
+          <span aria-hidden="true" style="width: 40px; height: 40px; border-radius: 50%; background: #E7E9ED; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #5F6470">[Photo]</span>
+          <span style="font-size: 13px; line-height: 1.3"><strong style="display: block">[Manager name]</strong><span style="color: #5F6470">Country manager, Belgium</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NATIONAL MANAGERS: filter + hover cards -->
+  <section id="team" style="padding: 96px 32px; background: #FFFFFF; position: relative; overflow: hidden">
+    <div aria-hidden="true" class="blob3" style="position: absolute; width: 360px; height: 360px; left: -120px; top: 120px; border-radius: 50%; background: #CFA6C8; opacity: .25; filter: blur(80px)"></div>
+    <div style="position: relative; max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px">
+      <div class="reveal" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px">
+        <div style="max-width: 720px">
+          <p style="margin: 0 0 10px; font-size: 14px; font-weight: 700; color: #8A3F7B; letter-spacing: .4px">OUR PEOPLE</p>
+          <h2 class="sec-h2" style="margin: 0 0 14px; font-size: 46px; line-height: 1.1; font-weight: 800; letter-spacing: -1.4px">National managers <span class="shimmer-text">worldwide</span><span style="color: #F97243">.</span></h2>
+          <p style="margin: 0; font-size: 18px; color: #4A4F59">With offices in the USA, France, Luxembourg, Belgium, Italy, the UK, the Netherlands, Germany, the UAE and Armenia.</p>
+        </div>
+        <p style="margin: 0; font-size: 14px; color: #5F6470">Hover a card for contact details</p>
+      </div>
+
+      <div role="group" aria-label="Filter by country" class="reveal" style="display: flex; flex-wrap: wrap; gap: 8px">
+        <sc-for list="{{chips}}" as="chip" hint-placeholder-count="9">
+          <button type="button" onClick="{{chip.pick}}" aria-pressed="{{chip.pressed}}" class="chip {{chip.cls}}">{{chip.label}} <span style="opacity: .7; font-weight: 500">{{chip.count}}</span></button>
+        </sc-for>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px">
+        <sc-for list="{{managers}}" as="m" hint-placeholder-count="12">
+          <article class="mgr">
+            <div class="mgr-photo">
+              <img src="{{m.photo}}" alt="{{m.name}}">
+              <span class="mgr-tag">{{m.code}}</span>
+              <div class="mgr-panel">
+                <div class="mgr-row" style="transition-delay: .05s">
+                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                  <span style="white-space: pre-line">{{m.address}}</span>
+                </div>
+                <a class="mgr-row" href="{{m.tel}}" style="transition-delay: .1s">
+                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+                  <span>{{m.phone}}</span>
+                </a>
+                <a class="mgr-row" href="{{m.mailto}}" style="transition-delay: .15s">
+                  <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+                  <span>{{m.email}}</span>
+                </a>
+                <div class="mgr-row" style="transition-delay: .2s; justify-content: space-between; padding-top: 4px">
+                  <a href="#diagnostic" class="mgr-btn">Book a call</a>
+                  <sc-if value="{{m.sample}}" hint-placeholder-val="{{ true }}"><span class="mgr-sample">Sample contact</span></sc-if>
+                </div>
+              </div>
+            </div>
+            <div style="padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 2px">
+              <div style="display: flex; align-items: center; gap: 8px">
+                <span aria-hidden="true" class="flag flag-{{m.code}}"></span>
+                <strong style="font-size: 16px">{{m.name}}</strong>
+              </div>
+              <span style="font-size: 13px; color: #5F6470; padding-left: 26px">{{m.role}}</span>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHERE TO START: quiz -->
+  <section id="quiz" style="padding: 96px 32px; background: linear-gradient(135deg, #2B1530 0%, #4A1F45 50%, #7A2F5E 100%); color: #FFFFFF; position: relative; overflow: hidden">
+    <div aria-hidden="true" class="blob3" style="position: absolute; width: 380px; height: 380px; right: 4%; top: -80px; border-radius: 50%; background: #F97243; opacity: .25; filter: blur(90px)"></div>
+    <img aria-hidden="true" class="bob" src="assets/odoo-apps/accounting.png" alt="" style="position: absolute; right: 7%; bottom: 14%; width: 64px; height: 64px; border-radius: 16px; background: #FFFFFF; padding: 6px; opacity: .95">
+    <img aria-hidden="true" class="bob2" src="assets/odoo-apps/documents.png" alt="" style="position: absolute; left: 5%; top: 18%; width: 52px; height: 52px; border-radius: 14px; background: #FFFFFF; padding: 6px; opacity: .9">
+    <div style="position: relative; max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; align-items: center; text-align: center">
+      <div class="reveal">
+        <p class="eyebrow" style="color: #F9A07E">TOOL · WHERE TO START</p>
+        <h2 class="sec-h2" style="margin: 0 0 10px; font-size: 44px; line-height: 1.1; font-weight: 800; letter-spacing: -1.2px">Three questions. One clear first step.</h2>
+        <p style="margin: 0; font-size: 17px; color: #F1DDEB">An Odoo readiness check with no score — just a recommendation.</p>
+      </div>
+      <div class="quiz reveal">
+        <div class="quiz-progress"><span style="width: {{quiz.progress}}"></span></div>
+        <sc-if value="{{quiz.asking}}" hint-placeholder-val="{{ true }}">
+          <p class="quiz-step">Question {{quiz.num}} of 3</p>
+          <h3 class="quiz-q">{{quiz.q}}</h3>
+          <div class="quiz-opts">
+            <sc-for list="{{quiz.opts}}" as="o" hint-placeholder-count="3">
+              <button type="button" class="quiz-opt" onClick="{{o.pick}}">{{o.label}}</button>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{quiz.done}}" hint-placeholder-val="{{ false }}">
+          <p class="quiz-step">Your first step</p>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap">
+            <img src="{{quiz.icon}}" alt="" style="width: 56px; height: 56px; border-radius: 14px; background: #FFFFFF; padding: 4px">
+            <h3 class="quiz-q" style="margin: 0">{{quiz.result}}</h3>
+          </div>
+          <p style="margin: 0; color: #F1DDEB; font-size: 16px">{{quiz.why}}</p>
+          <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap">
+            <a href="#diagnostic" class="shine btn-p" style="background: #F97243; color: #1F1F23; text-decoration: none; font-weight: 700; height: 50px; padding: 0 22px; border-radius: 12px; display: flex; align-items: center">Book this as my diagnostic</a>
+            <button type="button" class="quiz-reset" onClick="{{quiz.reset}}">Start again</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIAL -->
+  <section style="padding: 104px 32px; background: #FBF6FA; position: relative; overflow: hidden">
+    <div aria-hidden="true" class="blob2" style="position: absolute; width: 320px; height: 320px; right: 6%; top: 10%; border-radius: 50%; background: #CFA6C8; opacity: .35; filter: blur(70px)"></div>
+    <div style="position: relative; max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+      <figure class="reveal" style="flex: 1 1 520px; min-width: 0; margin: 0; display: flex; flex-direction: column; gap: 24px">
+        <svg class="reveal-pop" aria-hidden="true" width="56" height="44" viewBox="0 0 56 44"><path d="M0 44V26C0 11 8 2 22 0l2 6C15 9 12 15 12 22h10v22zm32 0V26C32 11 40 2 54 0l2 6c-9 3-12 9-12 16h10v22z" fill="#F97243"/></svg>
+        <blockquote style="margin: 0; font-size: 30px; line-height: 1.38; font-weight: 700; letter-spacing: -0.6px">[Estating's testimonial from the live site — it praises doo.FINANCE's professionalism, reliability and customer care.]</blockquote>
+        <figcaption style="display: flex; align-items: center; gap: 14px">
+          <span aria-hidden="true" style="width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, #A0508F, #F97243); color: #FFFFFF; font-weight: 800; display: flex; align-items: center; justify-content: center">DT</span>
+          <span style="text-align: left"><strong style="display: block">Dennis Thiemann</strong><span style="font-size: 14px; color: #5F6470">COO, Estating</span></span>
+        </figcaption>
+      </figure>
+      <div class="reveal" style="flex: 1 1 320px; min-width: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px">
+        <div class="trust" style="--c: #A0508F"><strong>Gold</strong><span>Odoo Partner since 2022</span></div>
+        <div class="trust" style="--c: #0E9F8E"><strong>750+</strong><span>migrations since 2017</span></div>
+        <div class="trust" style="--c: #2F6FE4"><strong>10</strong><span>countries, one network</span></div>
+        <div class="trust" style="--c: #F97243"><strong>1</strong><span>point of contact for all of them</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSIGHTS: real posts -->
+  <section id="insights" style="padding: 96px 32px; background: #FFFFFF">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 36px">
+      <div class="reveal" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px">
+        <div>
+          <p class="eyebrow">INSIGHTS</p>
+          <h2 class="sec-h2" style="margin: 0; font-size: 42px; line-height: 1.1; font-weight: 800; letter-spacing: -1.2px">Latest from the blog<span style="color: #F97243">.</span></h2>
+        </div>
+        <a href="#insights" style="font-weight: 600">All articles →</a>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px">
+        <article class="post reveal">
+          <div class="post-cover" style="background: linear-gradient(135deg, #A0508F, #D886B8)">
+            <img src="assets/odoo-apps/accounting.png" alt=""><img src="assets/odoo-apps/documents.png" alt=""><img src="assets/odoo-apps/dashboards.png" alt="">
+          </div>
+          <div class="post-body"><span class="post-meta"><b>Migration</b> · 18 July 2025</span><h3><a href="#insights">Your guide to a successful Odoo accounting migration</a></h3></div>
+        </article>
+        <article class="post reveal">
+          <div class="post-cover" style="background: linear-gradient(135deg, #F97243, #FBC06A)">
+            <span class="post-date-big"><b>30</b>SEP</span><span class="post-flag"><span class="flag flag-AE" aria-hidden="true"></span>UAE</span>
+          </div>
+          <div class="post-body"><span class="post-meta"><b>Tax · UAE</b> · 9 July 2025</span><h3><a href="#insights">UAE corporate tax deadline: 30 September 2025 — don't miss it</a></h3></div>
+        </article>
+        <article class="post reveal">
+          <div class="post-cover" style="background: linear-gradient(135deg, #0E9F8E, #5ED3C2)">
+            <span class="post-city">Dubai</span><img src="assets/odoo-apps/accounting.png" alt="">
+          </div>
+          <div class="post-body"><span class="post-meta"><b>UAE</b> · 29 June 2025</span><h3><a href="#insights">Leading Odoo accounting firm in Dubai</a></h3></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- CTA: animated gradient -->
+  <section id="diagnostic" style="padding: 0 32px 96px; background: #FFFFFF">
+    <div class="grad reveal" style="max-width: 1200px; margin: 0 auto; border-radius: 28px; padding: 72px 40px; box-sizing: border-box; color: #FFFFFF; text-align: center; position: relative; overflow: hidden">
+      <img class="bob" src="assets/doo-finance-icon.png" alt="" style="position: absolute; left: 6%; top: 18%; width: 84px; height: 84px; border-radius: 22px; box-shadow: 0 16px 40px rgba(0,0,0,.2)">
+      <span aria-hidden="true" class="dot-bounce" style="position: absolute; right: 9%; bottom: 22%; width: 28px; height: 28px; border-radius: 50%; background: #F97243; box-shadow: 0 0 0 6px rgba(255,255,255,.25)"></span>
+      <div style="position: relative; max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 18px">
+        <h2 class="sec-h2" style="margin: 0; font-size: 48px; line-height: 1.08; font-weight: 800; letter-spacing: -1.4px">{{t.ctaTitle}}</h2>
+        <p style="margin: 0; font-size: 19px; color: #FBEFF7">{{t.ctaSub}}</p>
+        <a href="#diagnostic" class="shine btn-p" style="background: #FFFFFF; color: #8A3F7B; text-decoration: none; font-weight: 700; font-size: 17px; height: 56px; padding: 0 32px; border-radius: 12px; display: flex; align-items: center">Pick a time</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contact" class="foot">
+    <div aria-hidden="true" class="foot-line"></div>
+    <div aria-hidden="true" class="blob1" style="position: absolute; width: 420px; height: 420px; right: -120px; top: -60px; border-radius: 50%; background: #A0508F; opacity: .22; filter: blur(90px)"></div>
+    <div aria-hidden="true" class="blob2" style="position: absolute; width: 360px; height: 360px; left: -100px; bottom: 120px; border-radius: 50%; background: #F97243; opacity: .12; filter: blur(90px)"></div>
+
+    <div style="position: relative; max-width: 1200px; margin: 0 auto; padding: 72px 32px 0; display: flex; flex-direction: column; gap: 56px">
+
+      <!-- top row: brand, email, back to top -->
+      <div class="reveal" style="display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 32px">
+        <div style="display: flex; flex-direction: column; gap: 18px; max-width: 560px">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 20px">
+            <img src="assets/doo-finance-logo-white.png" alt="doo.FINANCE" style="height: 30px; width: auto">
+            <a href="mailto:hello@doo.finance" class="f-mail"><span>hello@doo.finance</span></a>
+          </div>
+          <p style="margin: 0; font-size: 17px; line-height: 1.55; color: #D9DBE1">The first international network of accounting firms and consultants for <span class="shimmer-text">Odoo Accounting</span>.</p>
+        </div>
+        <a href="#top" class="f-top" aria-label="Back to top">
+          <svg class="f-top-ring" viewBox="0 0 120 120" aria-hidden="true">
+            <defs><path id="ringPath" d="M60 60 m-46 0 a46 46 0 1 1 92 0 a46 46 0 1 1 -92 0"/></defs>
+            <text font-size="11.5" font-weight="700" letter-spacing="3.2" fill="#CFA6C8"><textPath href="#ringPath">BACK TO TOP • DOO.FINANCE • BACK TO TOP • </textPath></text>
+          </svg>
+          <span class="f-top-core"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span>
+        </a>
+      </div>
+
+      <!-- live office clocks -->
+      <div class="reveal f-clocks" aria-label="Local time in our offices">
+        <span class="f-clocks-label"><span class="f-live" aria-hidden="true"></span>Our offices, right now</span>
+        <sc-for list="{{clocks}}" as="c" hint-placeholder-count="6">
+          <span class="f-clock"><span class="flag flag-{{c.code}}" aria-hidden="true"></span><span class="f-city">{{c.city}}</span><strong>{{c.time}}</strong><span class="f-state {{c.cls}}">{{c.state}}</span></span>
+        </sc-for>
+      </div>
+
+      <!-- six link columns -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 36px 28px">
+        <nav aria-label="Accounting" class="f-col reveal" style="animation-delay: 0s">
+          <p class="f-head"><span class="f-dot" aria-hidden="true"></span>Accounting</p>
+          <ul>
+            <li><a href="#top" class="f-link">Bookkeeping<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="#top" class="f-link">Payroll<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="#top" class="f-link">Tax returns<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="#top" class="f-link">Reporting<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="#top" class="f-link">Fractional CFO<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="#top" class="f-link">Migration<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="#top" class="f-link">Training and advisory<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Consulting" class="f-col reveal" style="animation-delay: 0.05s">
+          <p class="f-head"><span class="f-dot" aria-hidden="true"></span>Consulting</p>
+          <ul>
+            <li><a href="#top" class="f-link">All finance consulting<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="#top" class="f-link">Process &amp; transformation<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="#top" class="f-link">AI &amp; automation<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="#top" class="f-link">Data &amp; integrations<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="#top" class="f-link">Consolidation &amp; group reporting<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Industries" class="f-col reveal" style="animation-delay: 0.1s">
+          <p class="f-head"><span class="f-dot" aria-hidden="true"></span>Industries</p>
+          <ul>
+            <li><a href="#top" class="f-link">SMEs<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="#top" class="f-link">Startups<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="#top" class="f-link">E-commerce<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="#top" class="f-link">Financial institutions<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="#top" class="f-link">Manufacturing<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Resources" class="f-col reveal" style="animation-delay: 0.15s">
+          <p class="f-head"><span class="f-dot" aria-hidden="true"></span>Resources</p>
+          <ul>
+            <li><a href="#top" class="f-link">Blog<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Company" class="f-col reveal" style="animation-delay: 0.2s">
+          <p class="f-head"><span class="f-dot" aria-hidden="true"></span>Company</p>
+          <ul>
+            <li><a href="#top" class="f-link">About us<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="#top" class="f-link">Our network<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="#top" class="f-link">Contact<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+            <li><a href="#top" class="f-link">Partners<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Tools" class="f-col reveal" style="animation-delay: 0.25s">
+          <p class="f-head"><span class="f-dot" aria-hidden="true"></span>Tools</p>
+          <ul>
+            <li><a href="#top" class="f-link">Where to start<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- newsletter -->
+      <div class="reveal f-news">
+        <div style="flex: 1 1 360px; min-width: 0">
+          <p class="f-head"><span class="f-dot" aria-hidden="true"></span>Newsletter</p>
+          <p style="margin: 0; font-size: 17px; color: #D9DBE1">The regulatory essentials for multi-country SMEs, in <span style="color: #F97243; font-weight: 700">three minutes</span>, twice a month.</p>
+        </div>
+        <form class="f-form" style="flex: 1 1 460px; min-width: 0">
+          <label for="nl-email" class="visually-hidden" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Email address</label>
+          <input id="nl-email" type="email" placeholder="you@company.com" class="f-input">
+          <button type="submit" class="f-sub shine">Subscribe<svg aria-hidden="true" class="f-plane" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg></button>
+        </form>
+      </div>
+
+      <!-- legal -->
+      <div style="display: flex; flex-direction: column; gap: 14px; border-top: 1px solid #3A3D46; padding-top: 22px">
+        <div style="display: flex; flex-wrap: wrap; gap: 22px; font-size: 14px">
+          <a href="#top" class="f-legal">Privacy policy</a>
+          <a href="#top" class="f-legal">Terms of service</a>
+          <a href="#top" class="f-legal">Manage cookies</a>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; font-size: 13.5px; color: #B9BCC6">
+          <span>© 2026 doo.FINANCE Network S.A. All rights reserved.</span>
+          <span class="f-gold"><span class="gold-chip"><img src="assets/odoo-gold-partner.png" alt="Odoo Gold Partner"></span>since 2022</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- giant wordmark -->
+    <div aria-hidden="true" class="f-giant"><span class="f-giant-doo">doo</span><span class="f-giant-dot">.</span><span class="f-giant-fin">FINANCE</span></div>
+  </footer>
+
+</div>
+</template>
+<script>
+/* Tiny template runtime for the doo.FINANCE page.
+   Supports {{path}} holes in text and attributes, on* event attributes,
+   <sc-for list as> and <sc-if value> blocks. Blocks re-render only when
+   their data changes, so entrance animations elsewhere don't replay. */
+(function () {
+  'use strict';
+  var HOLE = /\{\{\s*([^}]+?)\s*\}\}/g;
+
+  function lookup(path, scopes) {
+    path = path.trim();
+    if (path === 'true') return true;
+    if (path === 'false') return false;
+    if (/^-?\d+(\.\d+)?$/.test(path)) return parseFloat(path);
+    var parts = path.split('.');
+    for (var i = scopes.length - 1; i >= 0; i--) {
+      var s = scopes[i];
+      if (s && Object.prototype.hasOwnProperty.call(s, parts[0])) {
+        var v = s[parts[0]];
+        for (var j = 1; j < parts.length && v != null; j++) v = v[parts[j]];
+        return v;
+      }
+    }
+    return undefined;
+  }
+  function interp(str, scopes) {
+    return str.replace(HOLE, function (_, p) { var v = lookup(p, scopes); return v == null ? '' : String(v); });
+  }
+  function whole(str) { var m = /^\s*\{\{\s*([^}]+?)\s*\}\}\s*$/.exec(str); return m ? m[1] : null; }
+
+  // Fully process a cloned node tree for a given scope (used inside blocks).
+  function processTree(node, scopes) {
+    if (node.nodeType === 3) {
+      if (node.nodeValue.indexOf('{{') !== -1) node.nodeValue = interp(node.nodeValue, scopes);
+      return [node];
+    }
+    if (node.nodeType !== 1) return [node];
+    var tag = node.tagName.toLowerCase();
+    if (tag === 'sc-for') {
+      var list = lookup(node.getAttribute('list').replace(/[{}]/g, ''), scopes) || [];
+      var as = node.getAttribute('as');
+      var out = [];
+      list.forEach(function (item, idx) {
+        var sc = {}; sc[as] = item; sc.$index = idx;
+        Array.prototype.forEach.call(node.childNodes, function (ch) {
+          processTree(ch.cloneNode(true), scopes.concat([sc])).forEach(function (n) { out.push(n); });
+        });
+      });
+      return out;
+    }
+    if (tag === 'sc-if') {
+      var val = lookup(node.getAttribute('value').replace(/[{}]/g, ''), scopes);
+      if (!val) return [];
+      var res = [];
+      Array.prototype.forEach.call(node.childNodes, function (ch) {
+        processTree(ch.cloneNode(true), scopes).forEach(function (n) { res.push(n); });
+      });
+      return res;
+    }
+    bindAttrs(node, scopes, true);
+    var kids = Array.prototype.slice.call(node.childNodes);
+    kids.forEach(function (ch) {
+      var rep = processTree(ch, scopes);
+      if (rep.length !== 1 || rep[0] !== ch) {
+        rep.forEach(function (n) { node.insertBefore(n, ch); });
+        node.removeChild(ch);
+      }
+    });
+    return [node];
+  }
+
+  // attributes: events, holes; `fixed` resolves handlers now, otherwise at event time.
+  function bindAttrs(el, scopes, fixed, app, bindings) {
+    Array.prototype.slice.call(el.attributes).forEach(function (a) {
+      var name = a.name, val = a.value;
+      if (name.indexOf('hint-') === 0) { el.removeAttribute(name); return; }
+      if (/^on[a-z]+$/.test(name)) {
+        el.removeAttribute(name);
+        var path = whole(val); if (!path) return;
+        var ev = name.slice(2);
+        if (fixed) {
+          var fn = lookup(path, scopes);
+          if (typeof fn === 'function') el.addEventListener(ev, fn);
+        } else {
+          el.addEventListener(ev, function (e) { var f = lookup(path, [app.vals]); if (typeof f === 'function') f(e); });
+        }
+        return;
+      }
+      if (val.indexOf('{{') === -1) return;
+      if (fixed) el.setAttribute(name, interp(val, scopes));
+      else bindings.push(function (vals) { var nv = interp(val, [vals]); if (el.getAttribute(name) !== nv) el.setAttribute(name, nv); });
+    });
+  }
+
+  function sig(v) {
+    try { return JSON.stringify(v, function (k, x) { return typeof x === 'function' ? undefined : x; }); } catch (e) { return Math.random(); }
+  }
+  function blockData(node, vals) {
+    var p = (node.getAttribute(node.tagName.toLowerCase() === 'sc-for' ? 'list' : 'value') || '').replace(/[{}]/g, '').trim();
+    var root = p.split('.')[0];
+    return sig([lookup(p, [vals]), vals[root]]);
+  }
+
+  // Compile the top-level template once: static nodes are bound in place,
+  // sc-for / sc-if become regions that re-render when their data changes.
+  function compile(root, app) {
+    var bindings = [], blocks = [];
+    (function walk(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (ch) {
+        if (ch.nodeType === 3) {
+          if (ch.nodeValue.indexOf('{{') !== -1) {
+            var tpl = ch.nodeValue;
+            bindings.push(function (vals) { var t = interp(tpl, [vals]); if (ch.nodeValue !== t) ch.nodeValue = t; });
+          }
+          return;
+        }
+        if (ch.nodeType !== 1) return;
+        var tag = ch.tagName.toLowerCase();
+        if (tag === 'sc-for' || tag === 'sc-if') {
+          var start = document.createComment(tag), end = document.createComment('/' + tag);
+          node.insertBefore(start, ch); node.insertBefore(end, ch); node.removeChild(ch);
+          blocks.push({ tpl: ch, start: start, end: end, last: null });
+          return;
+        }
+        bindAttrs(ch, null, false, app, bindings);
+        walk(ch);
+      });
+    })(root);
+    return { bindings: bindings, blocks: blocks };
+  }
+
+  window.DCLogic = function DCLogic(props) { this.props = props || {}; this.state = {}; };
+  window.DCLogic.prototype.setState = function (o) {
+    var self = this;
+    Object.assign(this.state, typeof o === 'function' ? o(this.state) : o);
+    if (!self.__pending) { self.__pending = true; requestAnimationFrame(function () { self.__pending = false; self.__render(); }); }
+  };
+  window.DCLogic.prototype.forceUpdate = function () { this.__render(); };
+
+  window.mountDC = function (Component, rootEl, tplEl) {
+    var app = new Component({});
+    // Compile inside the template's inert document so placeholder image
+    // paths like {{x.icon}} are never requested; attach after first render.
+    var frag = tplEl.content.cloneNode(true);
+    var compiled = compile(frag, app);
+    app.__render = function () {
+      var vals = app.renderVals();
+      app.vals = vals;
+      compiled.bindings.forEach(function (b) { b(vals); });
+      compiled.blocks.forEach(function (bl) {
+        var s = blockData(bl.tpl, vals);
+        if (s === bl.last) return;
+        bl.last = s;
+        var n = bl.start.nextSibling;
+        while (n && n !== bl.end) { var nx = n.nextSibling; n.parentNode.removeChild(n); n = nx; }
+        var frag = document.createDocumentFragment();
+        processTree(bl.tpl.cloneNode(true), [vals]).forEach(function (x) { frag.appendChild(x); });
+        bl.end.parentNode.insertBefore(frag, bl.end);
+      });
+    };
+    app.__render();
+    rootEl.appendChild(frag);
+    if (typeof app.componentDidMount === 'function') app.componentDidMount();
+    return app;
+  };
+})();
+
+</script>
+<script>
+
+// Contact details from the live doo.FINANCE site.
+const MANAGERS = [
+  { name: 'Olivier Nguyen', role: 'Partner — doo.FINANCE Network & UK', flag: 'LU', countries: ['Luxembourg', 'United Kingdom'], photo: 'assets/team/olivier-nguyen.jpg', address: '4 Rue du fort Wallis\nL-2714 Luxembourg', phone: '+352 621 372 628', email: 'onguyen@doo.finance', sample: false },
+  { name: 'Geoffrey Henry', role: 'Partner — doo.FINANCE Network', flag: 'LU', countries: ['Luxembourg'], photo: 'assets/team/geoffrey-henry.jpg', address: 'Luxembourg', phone: '+352 621 237 809', email: 'ghenry@doo.finance', sample: false },
+  { name: 'Sandrine Brassel', role: 'Partner — doo.FINANCE Luxembourg & Belgium', flag: 'LU', countries: ['Luxembourg', 'Belgium'], photo: 'assets/team/sandrine-brassel.jpg', address: 'Luxembourg', phone: '+352 661 488 661', email: 'sbrassel@doo.finance', sample: false },
+  { name: 'Valérie Emond', role: 'Partner — doo.FINANCE France', flag: 'FR', countries: ['France'], photo: 'assets/team/valerie-emond.jpg', address: 'Paris La Défense', phone: '+352 691 360 407', email: 'vemond@doo.finance', sample: false },
+  { name: 'Alberto Morandini', role: 'Partner — doo.FINANCE Network & Italy', flag: 'IT', countries: ['Italy'], photo: 'assets/team/alberto-morandini.jpg', address: 'Luxembourg', phone: '+352 621 228 544', email: 'amorandini@doo.finance', sample: false },
+  { name: 'Matteo Rigamonti', role: 'Country Manager — doo.FINANCE Italy', flag: 'IT', countries: ['Italy'], photo: 'assets/team/matteo-rigamonti.jpg', address: 'Milan', phone: '+39 366 243 8991', email: 'mrigamonti@doo.finance', sample: false },
+  { name: 'Marcella Amata', role: 'Country Manager — doo.FINANCE Italy', flag: 'IT', countries: ['Italy'], photo: 'assets/team/marcella-amata.jpg', address: 'Milan', phone: '+39 335 581 5258', email: 'mamata@doo.finance', sample: false },
+  { name: 'Oksana Vyrva', role: 'Country Manager — doo.FINANCE US', flag: 'US', countries: ['United States'], photo: 'assets/team/oksana-vyrva.jpg', address: 'San Jose, CA', phone: '+1 (650) 600-6526', email: 'ovyrva@doo.finance', sample: false },
+  { name: 'Martin De Bie', role: 'Country Manager — doo.FINANCE Netherlands', flag: 'NL', countries: ['Netherlands'], photo: 'assets/team/martin-de-bie.jpg', address: 'Rotterdam', phone: '+31 620 017 803', email: 'mdebie@doo.finance', sample: false },
+  { name: 'Richard Smid', role: 'Country Manager — doo.FINANCE Netherlands', flag: 'NL', countries: ['Netherlands'], photo: 'assets/team/richard-smid.jpg', address: 'Rotterdam', phone: '+31 623 817 572', email: 'rsmid@doo.finance', sample: false },
+  { name: 'Thomas Lenz', role: 'Country Manager — doo.FINANCE Germany', flag: 'DE', countries: ['Germany'], photo: 'assets/team/thomas-lenz.jpg', address: 'Cologne', phone: '+49 160 97924207', email: 'tlenz@doo.finance', sample: false },
+  { name: 'Verdickx Tunga', role: 'Country Manager — doo.FINANCE Belgium', flag: 'BE', countries: ['Belgium'], photo: 'assets/team/verdickx-tunga.jpg', address: 'Marche-en-Famenne', phone: '+32 473 82 46 90', email: 'vtunga@doo.finance', sample: false }
+];
+
+// ---------- multi-language demo: header + hero + CTA ----------
+const I18N = {
+  EN: { services: 'Services', germany: 'Germany', apps: 'Odoo apps', industries: 'Industries', how: 'How it works', people: 'Our people', insights: 'Insights', contact: 'Contact', cta: 'Free Odoo Diagnostic', choose: 'Country and language',
+        heroLine: 'Your Odoo partner for', w1: 'accounting', w2: 'payroll', w3: 'tax returns', w4: 'reporting',
+        sub: 'Bookkeeping, payroll, tax returns, reporting and migration — run inside your own Odoo by chartered accountants who use it every day.',
+        btn1: 'Book a free diagnostic', btn2: 'See our services', ctaTitle: 'Meet an Odoo expert.', ctaSub: 'Book a free diagnostic with a chartered accountant in your country.' },
+  FR: { services: 'Services', germany: 'Allemagne', apps: 'Applications Odoo', industries: 'Secteurs', how: 'Notre méthode', people: 'Notre équipe', insights: 'Actualités', contact: 'Contact', cta: 'Diagnostic Odoo gratuit', choose: 'Pays et langue',
+        heroLine: 'Votre partenaire Odoo pour', w1: 'la comptabilité', w2: 'la paie', w3: 'la fiscalité', w4: 'le reporting',
+        sub: 'Comptabilité, paie, déclarations fiscales, reporting et migration — gérés dans votre propre Odoo par des experts-comptables qui l’utilisent au quotidien.',
+        btn1: 'Réserver un diagnostic gratuit', btn2: 'Découvrir nos services', ctaTitle: 'Rencontrez un expert Odoo.', ctaSub: 'Réservez un diagnostic gratuit avec un expert-comptable dans votre pays.' },
+  NL: { services: 'Diensten', germany: 'Duitsland', apps: 'Odoo-apps', industries: 'Sectoren', how: 'Hoe het werkt', people: 'Ons team', insights: 'Inzichten', contact: 'Contact', cta: 'Gratis Odoo-diagnose', choose: 'Land en taal',
+        heroLine: 'Uw Odoo-partner voor', w1: 'boekhouding', w2: 'loonadministratie', w3: 'belastingen', w4: 'rapportering',
+        sub: 'Boekhouding, loonadministratie, belastingaangiften, rapportering en migratie — in uw eigen Odoo, door accountants die er elke dag mee werken.',
+        btn1: 'Plan een gratis diagnose', btn2: 'Bekijk onze diensten', ctaTitle: 'Maak kennis met een Odoo-expert.', ctaSub: 'Plan een gratis diagnose met een accountant in uw land.' },
+  DE: { services: 'Leistungen', germany: 'Deutschland', apps: 'Odoo-Apps', industries: 'Branchen', how: 'So funktioniert’s', people: 'Unser Team', insights: 'Insights', contact: 'Kontakt', cta: 'Kostenlose Odoo-Diagnose', choose: 'Land und Sprache',
+        heroLine: 'Ihr Odoo-Partner für', w1: 'Buchhaltung', w2: 'Lohnabrechnung', w3: 'Steuern', w4: 'Reporting',
+        sub: 'Buchhaltung, Lohnabrechnung, Steuererklärungen, Reporting und Migration — direkt in Ihrem eigenen Odoo, von Finanzexperten, die täglich damit arbeiten.',
+        btn1: 'Kostenlose Diagnose buchen', btn2: 'Unsere Leistungen', ctaTitle: 'Sprechen Sie mit einem Odoo-Experten.', ctaSub: 'Buchen Sie eine kostenlose Diagnose mit einem Experten in Ihrem Land.' },
+  IT: { services: 'Servizi', germany: 'Germania', apps: 'App Odoo', industries: 'Settori', how: 'Come funziona', people: 'Il nostro team', insights: 'Approfondimenti', contact: 'Contatti', cta: 'Diagnosi Odoo gratuita', choose: 'Paese e lingua',
+        heroLine: 'Il tuo partner Odoo per', w1: 'la contabilità', w2: 'le paghe', w3: 'le imposte', w4: 'il reporting',
+        sub: 'Contabilità, paghe, dichiarazioni fiscali, reporting e migrazione — gestiti nel tuo Odoo da commercialisti che lo usano ogni giorno.',
+        btn1: 'Prenota una diagnosi gratuita', btn2: 'Scopri i servizi', ctaTitle: 'Parla con un esperto Odoo.', ctaSub: 'Prenota una diagnosi gratuita con un commercialista nel tuo paese.' }
+};
+const LANG_NAMES = { EN: 'English', FR: 'Français', NL: 'Nederlands', DE: 'Deutsch', IT: 'Italiano' };
+const SITES = [
+  { id: 'global', name: 'Global', code: '', langs: ['EN'] },
+  { id: 'be', name: 'Belgium', code: 'BE', langs: ['FR', 'NL', 'EN'] },
+  { id: 'fr', name: 'France', code: 'FR', langs: ['FR'] },
+  { id: 'de', name: 'Germany', code: 'DE', langs: ['DE', 'EN'] },
+  { id: 'it', name: 'Italy', code: 'IT', langs: ['IT', 'EN'] },
+  { id: 'lu', name: 'Luxembourg', code: 'LU', langs: ['FR', 'DE', 'EN'] },
+  { id: 'nl', name: 'Netherlands', code: 'NL', langs: ['NL', 'EN'] },
+  { id: 'ae', name: 'United Arab Emirates', code: 'AE', langs: ['EN'] },
+  { id: 'gb', name: 'United Kingdom', code: 'GB', langs: ['EN'] },
+  { id: 'us', name: 'United States', code: 'US', langs: ['EN'] }
+];
+
+// ---------- Odoo app icons ----------
+const IC = {
+  accounting: 'assets/odoo-apps/accounting.png', sales: 'assets/odoo-apps/sales.png', crm: 'assets/odoo-apps/crm.png',
+  purchase: 'assets/odoo-apps/purchase.png', inventory: 'assets/odoo-apps/inventory.png', expenses: 'assets/odoo-apps/expenses.png',
+  payroll: 'assets/odoo-apps/payroll.png', documents: 'assets/odoo-apps/documents.png', sign: 'assets/odoo-apps/sign.png',
+  dashboards: 'assets/odoo-apps/dashboards.png', subscriptions: 'assets/odoo-apps/subscriptions.png', pos: 'assets/odoo-apps/pos.png',
+  timesheets: 'assets/odoo-apps/timesheets.png', project: 'assets/odoo-apps/project.png', employees: 'assets/odoo-apps/employees.png',
+  website: 'assets/odoo-apps/website.png', email: 'assets/odoo-apps/email-marketing.png', appointments: 'assets/odoo-apps/appointments.png',
+  knowledge: 'assets/odoo-apps/knowledge.png', manufacturing: 'assets/odoo-apps/manufacturing.png', helpdesk: 'assets/odoo-apps/helpdesk.png',
+  timeoff: 'assets/odoo-apps/time-off.png', discuss: 'assets/odoo-apps/discuss.png', rental: 'assets/odoo-apps/rental.png'
+};
+
+const APPS = [
+  { id: 'accounting', name: 'Accounting', color: '#9B4F8F', title: 'Real-time books, closed every month.', points: ['Bank feeds reconciled daily', 'Multi-GAAP and multi-currency ledgers', 'VAT and corporate tax returns prepared from Odoo'] },
+  { id: 'expenses', name: 'Expenses', color: '#2F9BE4', title: 'Receipts in, reimbursed, posted.', points: ['Employees snap receipts on their phone', 'Approval rules per team and amount', 'Posted to the right account automatically'] },
+  { id: 'payroll', name: 'Payroll', color: '#B03A6E', title: 'Payslips that post themselves.', points: ['Monthly payslips and declarations', 'Journal entries created automatically', 'Local payroll rules per country'] },
+  { id: 'documents', name: 'Documents', color: '#F97243', title: 'A paperless, audit-ready archive.', points: ['Supplier invoices read automatically', 'Automated supplier invoice validation', 'Every document linked to its entry'] },
+  { id: 'sign', name: 'Sign', color: '#0B6E8C', title: 'Approvals signed in minutes.', points: ['Engagement letters and contracts', 'Board and audit sign-offs', 'A complete signature trail'] },
+  { id: 'dashboards', name: 'Dashboards', color: '#2F6FE4', title: 'Numbers you can run the business on.', points: ['Management P&L and EBITDA', 'Margin and KPI dashboards', 'Budget versus actual, live'] },
+  { id: 'sales', name: 'Sales', color: '#E25563', title: 'Invoices with the right tax, every time.', points: ['Quotes become invoices in one click', 'Cross-border VAT and OSS handled', 'Payment terms and automatic reminders'] },
+  { id: 'crm', name: 'CRM', color: '#0E9F8E', title: 'A pipeline linked to cash.', points: ['Revenue forecast from open deals', 'Customers created once, used everywhere', 'Credit limits visible to sales'] },
+  { id: 'purchase', name: 'Purchase', color: '#7A3D6E', title: 'Three-way matching, no surprises.', points: ['Order, receipt and bill matched', 'Supplier bills checked before payment', 'Accruals booked at month-end'] },
+  { id: 'inventory', name: 'Inventory', color: '#E68A00', title: 'Stock valuation you can trust.', points: ['Real-time or periodic valuation', 'Cost of goods sold posted automatically', 'Landed costs on imports'] },
+  { id: 'manufacturing', name: 'Manufacturing', color: '#13A18D', title: 'Work in progress, properly costed.', points: ['Work in progress valued each month', 'Bill-of-materials cost roll-up', 'Production variances explained'] },
+  { id: 'subscriptions', name: 'Subscriptions', color: '#F59E0B', title: 'Recurring revenue, recognised right.', points: ['MRR and churn tracking', 'Deferred revenue schedules', 'Renewals invoiced automatically'] },
+  { id: 'pos', name: 'Point of Sale', color: '#D9534F', title: 'Shop sales closed every day.', points: ['Cash and card sessions closed', 'Payment providers reconciled', 'Daily entries in accounting'] },
+  { id: 'timesheets', name: 'Timesheets', color: '#0B6E8C', title: 'Hours turned into margin.', points: ['Billable versus non-billable time', 'Profitability per project', 'Time and materials invoiced'] },
+  { id: 'website', name: 'eCommerce', icon: 'website', color: '#2EBCFA', title: 'Online payouts reconciled.', points: ['Marketplace and payment provider payouts matched', 'Cross-border VAT on online sales', 'Refunds and fees posted correctly'] },
+  { id: 'employees', name: 'Employees', color: '#E2A23B', title: 'One record per person, every country.', points: ['Contracts and cost centres', 'Feeds payroll and expenses', 'Headcount reports by entity'] }
+];
+
+const SERVICES = {
+  accounting: [
+    { name: 'Bookkeeping', icon: 'accounting', color: '#A0508F', bg: '#F7EEF5', desc: 'Real-time access to your financial data in Odoo, kept current by chartered accountants.', tags: ['Bank reconciliation', 'Month-end close', 'Multi-currency'] },
+    { name: 'Payroll', icon: 'payroll', color: '#B03A6E', bg: '#FBEAF1', desc: 'Payslips, declarations and payroll entries, posted straight into Odoo.', tags: ['Payslips', 'Declarations', 'Journal entries'] },
+    { name: 'Tax returns', icon: 'documents', color: '#F97243', bg: '#FFF0E8', desc: 'VAT and corporate tax support by chartered accountants in each country.', tags: ['VAT', 'Corporate tax', 'OSS'] },
+    { name: 'Consolidation & group reporting', icon: 'dashboards', color: '#2F6FE4', bg: '#EAF1FE', desc: 'Multi-entity group accounts with intercompany eliminations, ready for audit.', tags: ['Multi-entity', 'Intercompany', 'Audit'] },
+    { name: 'Fractional CFO', icon: 'crm', color: '#0E9F8E', bg: '#E6F7F4', desc: 'Strategic financial guidance and growth planning, without a full-time hire.', tags: ['Budgets', 'Cash planning', 'Funding'] },
+    { name: 'Training', icon: 'knowledge', color: '#7A3D6E', bg: '#F3EAF1', desc: 'Hands-on Odoo accounting training for your finance team.', tags: ['Onboarding', 'Best practice', 'Support'] }
+  ],
+  consulting: [
+    { name: 'Odoo finance review', icon: 'appointments', color: '#0E9F8E', bg: '#E6F7F4', desc: 'A 20-minute diagnostic with written findings on your Odoo finance setup.', tags: ['20 minutes', 'Written findings', 'Free'] },
+    { name: 'Process & transformation', icon: 'project', color: '#A0508F', bg: '#F7EEF5', desc: 'Finance processes redesigned around what Odoo does best.', tags: ['Process design', 'Controls', 'Change'] },
+    { name: 'AI & automation', icon: 'documents', color: '#F97243', bg: '#FFF0E8', desc: 'Local compliance work automated, so your team checks instead of types.', tags: ['OCR', 'Auto-validation', 'Rules'] },
+    { name: 'Data & integrations', icon: 'website', color: '#2EBCFA', bg: '#E8F7FE', desc: 'E-commerce, payment providers and payroll systems connected to Odoo.', tags: ['E-commerce', 'PSP', 'Payroll'] },
+    { name: 'ERP migration', icon: 'subscriptions', color: '#E68A00', bg: '#FDF3E1', desc: 'From DATEV, Exact, QuickBooks or NetSuite to Odoo, with your history intact.', tags: ['DATEV', 'Exact', 'QuickBooks', 'NetSuite'] },
+    { name: 'Financial reporting', icon: 'dashboards', color: '#2F6FE4', bg: '#EAF1FE', desc: 'Management P&L, EBITDA, margin and KPIs, live in Odoo.', tags: ['P&L', 'EBITDA', 'KPIs'] }
+  ],
+  partners: [
+    { name: 'For Odoo partners', icon: 'discuss', color: '#A0508F', bg: '#F7EEF5', desc: 'Add a finance specialist to your implementation team for accounting-heavy projects.', tags: ['Implementation', 'Finance expertise'] },
+    { name: 'Ongoing accounting', icon: 'accounting', color: '#F97243', bg: '#FFF0E8', desc: 'Your clients keep a local chartered accountant who already works in Odoo.', tags: ['10 countries', 'One contact'] }
+  ]
+};
+const SVC_TABS = [{ id: 'accounting', label: 'Accounting' }, { id: 'consulting', label: 'Consulting' }, { id: 'partners', label: 'For Odoo partners' }];
+
+// SAMPLE chart data (labelled on the page)
+const BARS = [['2017', 18], ['2018', 32], ['2019', 45], ['2020', 61], ['2021', 78], ['2022', 96], ['2023', 112], ['2024', 128], ['2025', 118], ['2026', 74]];
+const DONUT = [['DATEV', 24, '#F97243'], ['Exact', 21, '#A0508F'], ['QuickBooks', 18, '#2EBCFA'], ['Older Odoo', 16, '#0E9F8E'], ['NetSuite', 9, '#F5C044'], ['Other', 12, '#8C8FA1']];
+const BY_COUNTRY = [['BE', 'Belgium', 180], ['LU', 'Luxembourg', 150], ['FR', 'France', 140], ['NL', 'Netherlands', 95], ['IT', 'Italy', 80], ['DE', 'Germany', 60]];
+
+const SRCS = [
+  { id: 'datev', label: 'DATEV', base: 8 }, { id: 'exact', label: 'Exact', base: 7 }, { id: 'qb', label: 'QuickBooks', base: 5 },
+  { id: 'netsuite', label: 'NetSuite', base: 9 }, { id: 'odoo', label: 'Older Odoo', base: 4 }, { id: 'xls', label: 'Spreadsheets', base: 4 }
+];
+
+const INDUSTRIES = [
+  { name: 'SMEs', color: '#A0508F', bg: '#F7EEF5', icons: ['accounting', 'payroll', 'expenses'], desc: 'A complete finance function without building an in-house team.', tags: ['Bookkeeping', 'Payroll', 'Tax'] },
+  { name: 'Startups', color: '#2F6FE4', bg: '#EAF1FE', icons: ['dashboards', 'subscriptions', 'sign'], desc: 'Investor reporting, runway and a chart of accounts that scales.', tags: ['Investor reporting', 'Runway', 'Chart of accounts'] },
+  { name: 'E-commerce', color: '#F97243', bg: '#FFF0E8', icons: ['website', 'sales', 'pos'], desc: 'Marketplaces, payment providers, cross-border VAT and payouts, reconciled.', tags: ['Marketplaces', 'PSP payouts', 'Cross-border VAT'] },
+  { name: 'Financial institutions', color: '#0E9F8E', bg: '#E6F7F4', icons: ['documents', 'sign', 'dashboards'], desc: 'Regulated reporting with a full audit trail.', tags: ['Regulated reporting', 'Audit trail'] },
+  { name: 'Manufacturing', color: '#E68A00', bg: '#FDF3E1', icons: ['manufacturing', 'inventory', 'purchase'], desc: 'Stock valuation, work in progress and cost of goods sold you can trust.', tags: ['Stock valuation', 'WIP', 'COGS'] }
+];
+
+const QUIZ = [
+  { q: 'Where does your finance run today?', opts: ['Already on Odoo', 'On another ERP', 'Spreadsheets and a local tool'] },
+  { q: 'How many countries do you report in?', opts: ['One', 'Two or three', 'Four or more'] },
+  { q: 'What hurts most right now?', opts: ['A slow month-end close', 'Tax and VAT filings', 'No clear management numbers'] }
+];
+function quizResult(a) {
+  const first = [
+    { r: 'Odoo finance review', icon: 'appointments', w: 'A 20-minute diagnostic of your current Odoo setup, with written findings.' },
+    { r: 'ERP migration plan', icon: 'subscriptions', w: 'We map your current system to Odoo and move your history with it.' },
+    { r: 'Bookkeeping in Odoo', icon: 'accounting', w: 'We set up Odoo and keep your books current from month one.' }
+  ][a[0]];
+  const then = ['bank automation to speed up the close', 'tax returns handled by local chartered accountants', 'management dashboards for P&L, EBITDA and margin'][a[2]];
+  const scope = a[1] === 2 ? ' Group consolidation across your entities comes next.' : a[1] === 1 ? ' One contact covers every country.' : '';
+  return { result: first.r, icon: IC[first.icon], why: first.w + ' Then: ' + then + '.' + scope };
+}
+
+
+const DE_FLOWS = ['Accounting Entries', 'Invoices', 'Customer & Vendor Data', 'VAT Information', 'Bank Transactions', 'Payroll Data', 'DATEV Export Files'];
+
+// status: native | file | api | feas  — every badge is backed by vendor or Odoo documentation.
+const PLATFORMS = [
+  { id: 'datev', name: 'DATEV', vendor: 'DATEV eG', cat: 'Tax advisor & accounting platform', logo: 'assets/datev.png', status: 'native',
+    badges: [['Native Odoo export', 'b-native'], ['DATEV-Compatible Export', 'b-datev']],
+    desc: "Germany's standard for Steuerberater. Odoo exports postings, partner accounts and document images in DATEV format.",
+    method: "Odoo's German localization exports DATEV ATCH (invoice documents) and DATEV DATA (EXTF Buchungsstapel plus partner account files) from the general ledger. Your Steuerberater imports them into DATEV Rechnungswesen. Importing from DATEV into Odoo, and payroll data from DATEV LODAS, are custom work.",
+    flows: ['Accounting Entries', 'Invoices', 'Customer & Vendor Data', 'VAT Information', 'DATEV Export Files', 'Payroll Data'] },
+  { id: 'addison', name: 'ADDISON', vendor: 'Wolters Kluwer', cat: 'Tax advisor software', logo: '', status: 'file',
+    badges: [['File-Based Exchange', 'b-file']],
+    desc: 'Tax advisor suite (incl. AKTE). Its SMART Connect imports postings in DATEV format, the same files Odoo exports.',
+    method: 'ADDISON SMART Connect imports bookings and invoice data in DATEV format (DATEV CSV and DATEV XML). Odoo’s DATEV export is the starting point; field mapping is checked with the tax firm.',
+    flows: ['Accounting Entries', 'Invoices', 'Customer & Vendor Data', 'DATEV Export Files'] },
+  { id: 'agenda', name: 'AGENDA', vendor: 'Agenda Informationssysteme', cat: 'Tax advisor software', logo: 'assets/agenda.png', status: 'file',
+    badges: [['File-Based Exchange', 'b-file']],
+    desc: "Tax advisor software with a DATEV import assistant that reads DATEV-format files from other systems.",
+    method: "AGENDA's DATEV import assistant reads DATEV-format CSV (and DATEV XML for document data). Odoo provides the DATEV-format files; the exact import profile is agreed with the tax firm.",
+    flows: ['Accounting Entries', 'Invoices', 'DATEV Export Files'] },
+  { id: 'simba', name: 'Simba', vendor: 'Simba Computer Systeme', cat: 'Tax advisor software', logo: '', status: 'file',
+    badges: [['File-Based Exchange', 'b-file']],
+    desc: 'Tax advisor software whose posting-data import accepts DATEV-format data.',
+    method: "Simba's Buchungsdatenimport accepts structured document data in DATEV XML format, and Simba can export in DATEV CSV. Odoo exchanges data through the DATEV format.",
+    flows: ['Accounting Entries', 'Invoices', 'DATEV Export Files'] },
+  { id: 'stotax', name: 'Stotax', vendor: 'Stollfuß Medien', cat: 'Tax advisor software', logo: '', status: 'feas',
+    badges: [['Integration Feasibility Assessment', 'b-feas']],
+    desc: 'Tax and accounting software for tax firms. Exchange with Odoo is assessed per project.',
+    method: 'Stotax can export accounting data for transfer to DATEV. A documented import route for Odoo-generated files has not been verified, so we assess it per project before committing.',
+    flows: ['Accounting Entries', 'DATEV Export Files'] },
+  { id: 'lexware', name: 'Lexware', vendor: 'Haufe Group', cat: 'SME accounting', logo: '', status: 'api',
+    badges: [['API Integration', 'b-api'], ['File-Based Exchange', 'b-file']],
+    desc: 'SME accounting (Lexware Office and desktop). Public REST API and ASCII import, typical for migrations to Odoo.',
+    method: 'Lexware Office has a public REST API (XL plan) for contacts, invoices, vouchers and payments. Lexware buchhaltung pro imports bookings and Debitoren/Kreditoren via ASCII. There is no native Odoo connector: this is a custom build.',
+    flows: ['Customer & Vendor Data', 'Invoices', 'Accounting Entries', 'Bank Transactions'] },
+  { id: 'sevdesk', name: 'sevdesk', vendor: 'sevdesk GmbH', cat: 'SME cloud accounting', logo: '', status: 'api',
+    badges: [['API Integration', 'b-api'], ['Custom Integration', 'b-custom']],
+    desc: 'Cloud accounting for small businesses with a REST API, often the starting point for a move to Odoo.',
+    method: 'The sevdesk REST API (from the Buchhaltung Pro plan) covers contacts, invoices, vouchers and transactions. We build a custom connector, usually to migrate history into Odoo or run both during a transition.',
+    flows: ['Customer & Vendor Data', 'Invoices', 'Bank Transactions', 'Accounting Entries'] },
+  { id: 'sage', name: 'Sage', vendor: 'Sage 100 (Germany)', cat: 'Mid-market ERP & accounting', logo: '', status: 'file',
+    badges: [['File-Based Exchange', 'b-file']],
+    desc: 'Sage 100 imports and exports DATEV-format (DTVF) files, so postings can move via the DATEV format.',
+    method: 'Sage 100 exports in DATEV format and can import DTVF files (the DATEV import is optional in Sage 100). Odoo and Sage 100 exchange postings and master data through the DATEV format. Other Sage editions are assessed separately.',
+    flows: ['Accounting Entries', 'Customer & Vendor Data', 'DATEV Export Files'] },
+  { id: 'diamant', name: 'Diamant', vendor: 'Diamant Software', cat: 'Mid-market accounting', logo: '', status: 'feas',
+    badges: [['Integration Feasibility Assessment', 'b-feas']],
+    desc: 'Accounting and controlling software for German mid-sized companies. Interface options are assessed per project.',
+    method: 'Diamant is relevant for German mid-market finance teams. We have not verified a specific import or API route for this page, so integration is scoped after a technical assessment.',
+    flows: ['Accounting Entries', 'Customer & Vendor Data'] }
+];
+const DE_KIND = { native: 'Native Odoo export', file: 'File-based exchange', api: 'Custom API integration', feas: 'Integration feasibility assessment' };
+const DE_DOT = { native: 'dot-native', file: 'dot-file', api: 'dot-api', feas: 'dot-feas' };
+const DE_PT = { native: '#5BD08E', file: '#CFA6C8', api: '#7FB2FF', feas: '#FFE27A' };
+
+
+const OFFICES = [
+  { city: 'New York', code: 'US', tz: 'America/New_York' },
+  { city: 'London', code: 'GB', tz: 'Europe/London' },
+  { city: 'Paris', code: 'FR', tz: 'Europe/Paris' },
+  { city: 'Brussels', code: 'BE', tz: 'Europe/Brussels' },
+  { city: 'Luxembourg', code: 'LU', tz: 'Europe/Luxembourg' },
+  { city: 'Amsterdam', code: 'NL', tz: 'Europe/Amsterdam' },
+  { city: 'Berlin', code: 'DE', tz: 'Europe/Berlin' },
+  { city: 'Milan', code: 'IT', tz: 'Europe/Rome' },
+  { city: 'Yerevan', code: 'AM', tz: 'Asia/Yerevan' },
+  { city: 'Dubai', code: 'AE', tz: 'Asia/Dubai' }
+];
+function officeClock(o, now) {
+  let time = '--:--', open = false;
+  try {
+    time = new Intl.DateTimeFormat('en-GB', { timeZone: o.tz, hour: '2-digit', minute: '2-digit', hour12: false }).format(now);
+    const day = new Intl.DateTimeFormat('en-US', { timeZone: o.tz, weekday: 'short' }).format(now);
+    const h = parseInt(time.slice(0, 2), 10);
+    const weekend = o.code === 'AE' ? (day === 'Sat' || day === 'Sun') : (day === 'Sat' || day === 'Sun');
+    open = !weekend && h >= 9 && h < 18;
+  } catch (e) {}
+  return { city: o.city, code: o.code, time: time, state: open ? 'Open' : 'Closed', cls: open ? 'open' : 'closed' };
+}
+
+const COUNTRIES = ['All', 'Belgium', 'France', 'Germany', 'Italy', 'Luxembourg', 'Netherlands', 'United Kingdom', 'United States'];
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { country: 'All', site: 'global', lang: 'EN', langOpen: false, now: Date.now(), app: 'accounting', svc: 'accounting', src: 'datev', ent: 2, cty: 2, yrs: 5, qStep: 0, qAns: [], dsel: 'datev', dflow: '' };
+  }
+  componentDidMount() {
+    this._tick = setInterval(() => this.setState({ now: Date.now() }), 20000);
+  }
+  componentWillUnmount() {
+    clearInterval(this._tick);
+  }
+  renderVals() {
+    const sel = this.state.country;
+    const chips = COUNTRIES.map((c) => {
+      const on = c === sel;
+      const count = c === 'All' ? MANAGERS.length : MANAGERS.filter((m) => m.countries.indexOf(c) !== -1).length;
+      return {
+        label: c,
+        count: count,
+        pressed: on ? 'true' : 'false',
+        cls: on ? 'chip-on' : 'chip-off',
+        pick: () => this.setState({ country: c })
+      };
+    });
+    const managers = MANAGERS
+      .filter((m) => sel === 'All' || m.countries.indexOf(sel) !== -1)
+      .map((m) => ({
+        name: m.name,
+        role: m.role,
+        photo: m.photo,
+        address: m.address,
+        phone: m.phone,
+        email: m.email,
+        sample: m.sample,
+        code: m.flag,
+        tel: 'tel:' + m.phone.replace(/\s+/g, ''),
+        mailto: 'mailto:' + m.email
+      }));
+    const appSel = APPS.find((x) => x.id === this.state.app) || APPS[0];
+    const apps = APPS.map((x) => ({
+      name: x.name, color: x.color, icon: IC[x.icon || x.id],
+      cls: x.id === appSel.id ? 'is-on' : '', pressed: x.id === appSel.id ? 'true' : 'false',
+      pick: () => { if (this.state.app !== x.id) this.setState({ app: x.id }); }
+    }));
+    const app = { name: appSel.name, color: appSel.color, icon: IC[appSel.icon || appSel.id], title: appSel.title, points: appSel.points.map((t) => ({ text: t })) };
+
+    const svcTabs = SVC_TABS.map((tb) => ({ label: tb.label, cls: tb.id === this.state.svc ? 'is-on' : '', selected: tb.id === this.state.svc ? 'true' : 'false', pick: () => this.setState({ svc: tb.id }) }));
+    const services = SERVICES[this.state.svc].map((x) => ({ name: x.name, desc: x.desc, color: x.color, bg: x.bg, icon: IC[x.icon], kind: this.state.svc === 'partners' ? 'Partners' : (this.state.svc === 'consulting' ? 'Consulting' : 'Accounting'), tags: x.tags.map((t) => ({ t: t })) }));
+
+    const maxBar = Math.max.apply(null, BARS.map((b) => b[1]));
+    const bars = BARS.map((b, i) => ({ y: b[0] === '2026' ? '2026*' : b[0], v: b[1], h: Math.round(b[1] / maxBar * 100) + '%', d: (i * 0.07).toFixed(2) + 's', bg: i === BARS.length - 1 ? 'linear-gradient(180deg,#FBC06A,#F97243)' : 'linear-gradient(180deg,#D886B8,#A0508F)' }));
+    const barTotal = BARS.reduce((t, b) => t + b[1], 0);
+    const C = 2 * Math.PI * 44;
+    let acc = 0;
+    const donut = DONUT.map((d) => { const len = d[1] / 100 * C; const o = { label: d[0], pct: d[1] + '%', color: d[2], dash: len.toFixed(2) + ' ' + (C - len).toFixed(2), offset: (-acc).toFixed(2) }; acc += len; return o; });
+    const maxC = BY_COUNTRY[0][2];
+    const byCountry = BY_COUNTRY.map((c, i) => ({ code: c[0], name: c[1], v: c[2], w: Math.round(c[2] / maxC * 100) + '%' }));
+
+    const src = SRCS.find((x) => x.id === this.state.src) || SRCS[0];
+    const ent = this.state.ent, cty = this.state.cty, yrs = this.state.yrs;
+    const weeks = Math.max(3, Math.round(src.base + 1.2 * (ent - 1) + 0.8 * (cty - 1) + 0.35 * yrs));
+    const split = [['Diagnostic & design', 0.15, '#A0508F'], ['Data migration', 0.4, '#F97243'], ['Set-up & tests', 0.3, '#0E9F8E'], ['Go-live & training', 0.15, '#2F6FE4']];
+    const est = {
+      weeks: weeks, entities: ent, countries: cty, years: yrs, src: src.label,
+      phases: split.map((p) => ({ label: p[0], w: p[1], color: p[2], wk: Math.max(1, Math.round(weeks * p[1])) + ' wk' })),
+      notes: [
+        { t: yrs + (yrs === 1 ? ' year' : ' years') + ' of history moved from ' + src.label },
+        { t: cty + (cty === 1 ? ' tax regime' : ' tax regimes') + ' set up by local chartered accountants' },
+        { t: ent === 1 ? 'One company, one clean chart of accounts' : 'One chart of accounts across ' + ent + ' entities, consolidation-ready' }
+      ]
+    };
+    const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+    const srcs = SRCS.map((x) => ({ label: x.label, cls: x.id === src.id ? 'is-on' : '', pressed: x.id === src.id ? 'true' : 'false', pick: () => this.setState({ src: x.id }) }));
+
+    const industries = INDUSTRIES.map((x, i) => ({ n: '0' + (i + 1), name: x.name, color: x.color, bg: x.bg, desc: x.desc, icons: x.icons.map((k) => ({ src: IC[k] })), tags: x.tags.map((t) => ({ t: t })) }));
+
+    const qStep = this.state.qStep;
+    const done = qStep >= QUIZ.length;
+    const res = done ? quizResult(this.state.qAns) : null;
+    const quiz = {
+      asking: !done, done: done, num: Math.min(qStep + 1, 3),
+      progress: Math.round(Math.min(qStep, 3) / 3 * 100) + '%',
+      q: done ? '' : QUIZ[qStep].q,
+      opts: done ? [] : QUIZ[qStep].opts.map((o, i) => ({ label: o, pick: () => this.setState({ qStep: qStep + 1, qAns: this.state.qAns.concat([i]) }) })),
+      result: res ? res.result : '', icon: res ? res.icon : '', why: res ? res.why : '',
+      reset: () => this.setState({ qStep: 0, qAns: [] })
+    };
+
+    const dSelId = this.state.dsel, dFlow = this.state.dflow;
+    const dSelP = PLATFORMS.find((p) => p.id === dSelId) || PLATFORMS[0];
+    const nP = PLATFORMS.length;
+    const geo = PLATFORMS.map((p, i) => {
+      const a = (-90 + i * (360 / nP)) * Math.PI / 180;
+      return { x: Math.round(500 + 395 * Math.cos(a)), y: Math.round(300 + 235 * Math.sin(a)) };
+    });
+    const carries = (p) => !dFlow || p.flows.indexOf(dFlow) !== -1;
+    const dCards = PLATFORMS.map((p, i) => ({
+      name: p.name, vendor: p.vendor, cat: p.cat, desc: p.desc,
+      logo: p.logo, hasLogo: !!p.logo, noLogo: !p.logo,
+      badges: p.badges.map((b) => ({ label: b[0], cls: b[1] })),
+      cls: p.id === dSelId ? 'is-on' : '', pressed: p.id === dSelId ? 'true' : 'false',
+      aria: p.name + ': ' + p.badges.map((b) => b[0]).join(', '),
+      delay: (i * 0.06).toFixed(2) + 's',
+      pick: () => this.setState({ dsel: p.id })
+    }));
+    const dLinks = PLATFORMS.map((p, i) => {
+      const g = geo[i];
+      const on = p.id === dSelId;
+      const dim = !carries(p);
+      const dx = g.x - 500, dy = g.y - 300;
+      const len = Math.sqrt(dx * dx + dy * dy);
+      return {
+        w: (len / 10).toFixed(2) + '%',
+        deg: (Math.atan2(dy, dx) * 180 / Math.PI).toFixed(1) + 'deg',
+        dur: (2.4 + (i % 3) * 0.5).toFixed(1) + 's', color: DE_PT[p.status],
+        backcls: p.status === 'api' ? '' : 'hide',
+        cls: [p.status === 'feas' ? 'dash' : '', on ? 'on' : '', dim ? 'dim' : ''].join(' '),
+        ptcls: dim ? 'dim' : ''
+      };
+    });
+    const dNodes = PLATFORMS.map((p, i) => ({
+      name: p.name, dot: DE_DOT[p.status],
+      left: (geo[i].x / 10) + '%', top: (geo[i].y / 6) + '%',
+      cls: (p.id === dSelId ? 'is-on' : '') + (carries(p) ? '' : ' dim'),
+      pressed: p.id === dSelId ? 'true' : 'false',
+      pick: () => this.setState({ dsel: p.id })
+    }));
+    const dFlows = DE_FLOWS.map((f) => ({
+      label: f, cls: f === dFlow ? 'is-on' : '', pressed: f === dFlow ? 'true' : 'false',
+      pick: () => this.setState({ dflow: this.state.dflow === f ? '' : f })
+    }));
+    const site = SITES.find((x) => x.id === this.state.site) || SITES[0];
+    const lang = this.state.lang;
+    const sites = SITES.map((x) => ({
+      name: x.name,
+      code: x.code,
+      globe: !x.code,
+      hasFlag: !!x.code,
+      cls: x.id === site.id ? 'is-current' : '',
+      pick: () => this.setState({ site: x.id, lang: x.langs[0], langOpen: false }),
+      langs: x.langs.map((l) => ({
+        code: l,
+        aria: x.name + ', ' + LANG_NAMES[l],
+        cls: x.id === site.id && l === lang ? 'is-on' : '',
+        pick: () => this.setState({ site: x.id, lang: l, langOpen: false })
+      }))
+    }));
+    return {
+      chips: chips,
+      managers: managers,
+      apps: apps, app: app, svcTabs: svcTabs, services: services,
+      bars: bars, barTotal: barTotal, donut: donut, byCountry: byCountry,
+      srcs: srcs, est: est,
+      entUp: () => this.setState({ ent: clamp(ent + 1, 1, 20) }), entDown: () => this.setState({ ent: clamp(ent - 1, 1, 20) }),
+      ctyUp: () => this.setState({ cty: clamp(cty + 1, 1, 10) }), ctyDown: () => this.setState({ cty: clamp(cty - 1, 1, 10) }),
+      yrsUp: () => this.setState({ yrs: clamp(yrs + 1, 1, 15) }), yrsDown: () => this.setState({ yrs: clamp(yrs - 1, 1, 15) }),
+      industries: industries, quiz: quiz,
+      dCards: dCards, dLinks: dLinks, dNodes: dNodes, dFlows: dFlows,
+      dSel: { name: dSelP.name, method: dSelP.method, kind: DE_KIND[dSelP.status], isFeas: dSelP.status === 'feas', flows: dSelP.flows.map((t) => ({ t: t })) },
+
+      clocks: OFFICES.map((o) => officeClock(o, new Date(this.state.now))),
+      t: I18N[lang] || I18N.EN,
+      sites: sites,
+      langOpen: this.state.langOpen,
+      langExpanded: this.state.langOpen ? 'true' : 'false',
+      toggleLang: () => this.setState({ langOpen: !this.state.langOpen }),
+      isGlobal: !site.code,
+      notGlobal: !!site.code,
+      curCode: site.code,
+      curLang: lang
+    };
+  }
+}
+
+mountDC(Component, document.getElementById('app'), document.getElementById('page'));
+</script>
+</body>
+</html>
